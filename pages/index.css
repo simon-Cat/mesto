@@ -36,3 +36,6 @@
 @import url(../blocks/place/__image/place__image.css);
 @import url(../blocks/place/__heading-content/place__heading-content.css);
 @import url(../blocks/place/__title/place__title.css);
+
+/* footer */
+@import url(../blocks/footer/__text/footer__text.css);
