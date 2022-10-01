@@ -1,0 +1,4 @@
+.place__heading-content {
+  display: flex;
+  justify-content: space-around;
+}
