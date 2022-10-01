@@ -1,0 +1,10 @@
+.profile__title {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 27px;
+  line-height: 33px;
+  text-align: center;
+  color: #ffffff;
+  margin: 0 0 14px;
+}
