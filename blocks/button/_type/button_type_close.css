@@ -1,0 +1,11 @@
+.button_type_close {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 87px;
+  right: 19px;
+  background-image: url(../../../images/close-button.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+}

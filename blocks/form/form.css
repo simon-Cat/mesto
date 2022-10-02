@@ -1,0 +1,12 @@
+.form {
+  min-height: 322px;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin: 0 19px;
+  position: relative;
+  top: 123px;
+}
