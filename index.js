@@ -1,10 +1,14 @@
 let profile = document.querySelector(".profile"),
-  edit_button = profile.querySelector(".button_type_edit"),
+  profile_title = profile.querySelector(".profile__title"),
+  profile_description = profile.querySelector(".profile__description"),
+  profile_edit_button = profile.querySelector(".button_type_edit"),
   popup = document.querySelector(".popup"),
-  close_button = popup.querySelector(".button_type_close");
+  popup_save_button = popup.querySelector(".button_type_submit"),
+  popup_close_button = popup.querySelector(".button_type_close");
 
-edit_button.addEventListener("click", showHidenPopup);
-close_button.addEventListener("click", showHidenPopup);
+profile_edit_button.addEventListener("click", showHidenPopup);
+popup_close_button.addEventListener("click", showHidenPopup);
+popup_save_button.addEventListener("click", saveProfileChanges);
 
 function showHidenPopup() {
   if (!popup.classList.contains("popup_opened")) {
@@ -12,4 +16,14 @@ function showHidenPopup() {
   } else {
     popup.classList.remove("popup_opened");
   }
+}
+
+function saveProfileChanges(evt) {
+  evt.preventDefault();
+
+  let input_name = popup.querySelector(".input_type_name").value,
+    input_post = popup.querySelector(".input_type_post").value;
+
+  profile_title.textContent = input_name;
+  profile_description.textContent = input_post;
 }
