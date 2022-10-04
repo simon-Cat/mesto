@@ -23,9 +23,7 @@
           />
           <figcaption>
             <div class="profile__heading">
-              <h2 class="profile__title">
-                Жак-Ив Кусто
-              </h2>
+              <h2 class="profile__title">Жак-Ив Кусто</h2>
               <button class="button button_type_edit"></button>
             </div>
             <p class="profile__description">Исследователь океана</p>
@@ -34,84 +32,96 @@
         <button class="button button_type_add"></button>
       </section>
       <ul class="content__places">
-        <li><article class="place">
-          <div>
-            <img
-              src="images/place-karachaevsk.jpg"
-              alt="Карачаевск"
-              class="place__image"
-            />
-          </div>
-          <div class="place__heading-content">
-            <h1 class="place__title">Карачаевск</h1>
-            <button class="button button_type_like"></button>
-          </div>
-        </article></li>
-        <li></li><article class="place">
-          <div>
-            <img
-              src="images/place-elbrus.jpg"
-              alt="Эльбрус"
-              class="place__image"
-            />
-          </div>
-          <div class="place__heading-content">
-            <h1 class="place__title">Гора Эльбрус</h1>
-            <button class="button button_type_like"></button>
-          </div>
-        </article></li>
-        <li></li><article class="place">
-          <div>
-            <img
-              src="images/place-dombai.jpg"
-              alt="Домбай"
-              class="place__image"
-            />
-          </div>
-          <div class="place__heading-content">
-            <h1 class="place__title">Домбай</h1>
-            <button class="button button_type_like"></button>
-          </div>
-        </article></li>
-        <li></li><article class="place">
-          <div>
-            <img
-              src="images/place-elbrus.jpg"
-              alt="Эльбрус"
-              class="place__image"
-            />
-          </div>
-          <div class="place__heading-content">
-            <h1 class="place__title">Гора Эльбрус</h1>
-            <button class="button button_type_like"></button>
-          </div>
-        </article></li>
-        <li></li><article class="place">
-          <div>
-            <img
-              src="images/place-dombai.jpg"
-              alt="Домбай"
-              class="place__image"
-            />
-          </div>
-          <div class="place__heading-content">
-            <h1 class="place__title">Домбай</h1>
-            <button class="button button_type_like"></button>
-          </div>
-        </article></li>
-        <li></li><article class="place">
-          <div>
-            <img
-              src="images/place-karachaevsk.jpg"
-              alt="Карачаевск"
-              class="place__image"
-            />
-          </div>
-          <div class="place__heading-content">
-            <h1 class="place__title">Карачаевск</h1>
-            <button class="button button_type_like"></button>
-          </div>
-        </article></li>
+        <li>
+          <article class="place">
+            <div class="place__image-container">
+              <img
+                src="images/place-karachaevsk.jpg"
+                alt="Карачаевск"
+                class="place__image"
+              />
+            </div>
+            <div class="place__heading-content">
+              <h1 class="place__title">Карачаевск</h1>
+              <button class="button button_type_like"></button>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="place">
+            <div class="place__image-container">
+              <img
+                src="images/place-elbrus.jpg"
+                alt="Эльбрус"
+                class="place__image"
+              />
+            </div>
+            <div class="place__heading-content">
+              <h1 class="place__title">Гора Эльбрус</h1>
+              <button class="button button_type_like"></button>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="place">
+            <div class="place__image-container">
+              <img
+                src="images/place-dombai.jpg"
+                alt="Домбай"
+                class="place__image"
+              />
+            </div>
+            <div class="place__heading-content">
+              <h1 class="place__title">Домбай</h1>
+              <button class="button button_type_like"></button>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="place">
+            <div class="place__image-container">
+              <img
+                src="images/place-elbrus.jpg"
+                alt="Эльбрус"
+                class="place__image"
+              />
+            </div>
+            <div class="place__heading-content">
+              <h1 class="place__title">Гора Эльбрус</h1>
+              <button class="button button_type_like"></button>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="place">
+            <div class="place__image-container">
+              <img
+                src="images/place-dombai.jpg"
+                alt="Домбай"
+                class="place__image"
+              />
+            </div>
+            <div class="place__heading-content">
+              <h1 class="place__title">Домбай</h1>
+              <button class="button button_type_like"></button>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="place">
+            <div class="place__image-container">
+              <img
+                src="images/place-karachaevsk.jpg"
+                alt="Карачаевск"
+                class="place__image"
+              />
+            </div>
+            <div class="place__heading-content">
+              <h1 class="place__title">Карачаевск</h1>
+              <button class="button button_type_like"></button>
+            </div>
+          </article>
+        </li>
       </ul>
     </main>
     <footer class="footer">
@@ -120,9 +130,15 @@
     <div class="popup">
       <form action="#" class="popup__form form">
         <h2 class="form__title">Редактировать профиль</h2>
-        <input type="text" value="Жак-Ив Кусто" class="input input_type_name">
-        <input type="text" value="Исследователь океана" class="input input_type_post">
-        <button type="submit" class="button button_type_submit"><span class="button__text">Сохранить</span></button>
+        <input type="text" value="Жак-Ив Кусто" class="input input_type_name" />
+        <input
+          type="text"
+          value="Исследователь океана"
+          class="input input_type_post"
+        />
+        <button type="submit" class="button button_type_submit">
+          <span class="button__text">Сохранить</span>
+        </button>
       </form>
       <button class="button button_type_close"></button>
     </div>

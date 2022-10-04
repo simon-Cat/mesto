@@ -37,6 +37,7 @@
 
 /* place */
 @import url(../blocks/place/place.css);
+@import url(../blocks/place/__image-container/place__image-container.css);
 @import url(../blocks/place/__image/place__image.css);
 @import url(../blocks/place/__heading-content/place__heading-content.css);
 @import url(../blocks/place/__title/place__title.css);
