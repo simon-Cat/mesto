@@ -1,12 +1,18 @@
 .form {
   min-height: 322px;
+  min-width: 282px;
+  max-width: 430px;
   display: flex;
-  box-sizing: border-box;
+  flex-grow: 1;
   flex-direction: column;
   align-items: center;
   background-color: #ffffff;
   border-radius: 10px;
-  margin: 0 19px;
   position: relative;
-  top: 123px;
+}
+
+@media screen and (min-width: 768px) {
+  .form {
+    min-height: 330px;
+  }
 }

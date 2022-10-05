@@ -10,7 +10,9 @@ profile_edit_button.addEventListener("click", showHidenPopup);
 popup_close_button.addEventListener("click", showHidenPopup);
 popup_save_button.addEventListener("click", saveProfileChanges);
 
-function showHidenPopup() {
+function showHidenPopup(evt) {
+  evt.preventDefault();
+  
   if (!popup.classList.contains("popup_opened")) {
     popup.classList.add("popup_opened");
   } else {

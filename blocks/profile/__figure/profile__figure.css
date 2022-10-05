@@ -1,3 +1,12 @@
 .profile__figure {
   margin: 0 0 36px;
 }
+
+@media screen and (min-width: 768px) {
+  .profile__figure {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+}
