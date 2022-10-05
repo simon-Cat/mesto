@@ -1,6 +1,7 @@
 # Проект: Место
 
 ### Обзор
+![Без имени](https://user-images.githubusercontent.com/110557132/194109299-1ada497b-7e4a-4e23-92ec-cf59d0d5f663.png)
 
 * Figma
 * Картинки
