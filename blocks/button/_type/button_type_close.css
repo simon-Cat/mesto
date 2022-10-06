@@ -9,3 +9,13 @@
   background-repeat: no-repeat;
   background-color: transparent;
 }
+
+@media screen and (min-width: 1024px) {
+  .button_type_close {
+    width: 32px;
+    height: 32px;
+    background-size: cover;
+    top: -40px;
+    right: -40px;
+  }
+}

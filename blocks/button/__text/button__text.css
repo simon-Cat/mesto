@@ -6,3 +6,10 @@
   line-height: 17px;
   color: #ffffff;
 }
+
+@media screen and (min-width: 1024px) {
+  .button__text {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

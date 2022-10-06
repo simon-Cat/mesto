@@ -17,19 +17,17 @@
     </div>
   </header>
   <main class="content">
-    <section class="content__profile profile">
-      <figure class="profile__figure">
-        <img src="images/avatar.jpg" alt="Фотография Жак-Ив Кусто" class="profile__avatar">
-        <figcaption>
-          <div class="profile__heading">
-            <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <button class="button button_type_edit"></button>
-          </div>
-          <p class="profile__description">Исследователь океана</p>
-        </figcaption>
-      </figure>
+    <div class="content__profile profile">
+      <img src="images/avatar.jpg" alt="Фотография Жак-Ив Кусто" class="profile__avatar">
+      <div class="profile__info">
+        <div class="profile__heading">
+          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <button class="button button_type_edit"></button>
+        </div>
+        <p class="profile__description">Исследователь океана</p>
+      </div>
       <button class="button button_type_add"></button>
-    </section>
+    </div>
     <ul class="content__places">
       <li>
         <article class="place">
@@ -113,7 +111,7 @@
       <button class="button button_type_close"></button>
     </form>
   </div>
-  <script src="index.js"></script>
+  <script src="scripts/index.js"></script>
 </body>
 
 </html>

@@ -8,6 +8,7 @@
     justify-content: space-between;
     align-items: center;
     margin: 0 25px 50px;
+    column-gap: 30px;
   }
 }
 

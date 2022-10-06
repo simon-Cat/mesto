@@ -9,3 +9,10 @@
 .button_type_submit:hover {
   opacity: 0.8;
 }
+
+@media screen and (min-width: 1024px) {
+  .button_type_submit {
+    max-width: 358px;
+    min-height: 50px;
+  }
+}

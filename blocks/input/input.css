@@ -7,3 +7,9 @@
   max-width: 238px;
   width: 100%;
 }
+
+@media screen and (min-width: 1024px) {
+  .input {
+    max-width: 358px;
+  }
+}
