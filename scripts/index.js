@@ -13,9 +13,9 @@ let profile = document.querySelector('.profile'),
   // элемент кнопки "закрыть" в блоке popup
   popupCloseButton = popup.querySelector('.button_type_close'),
   // input с именем
-  input_name = popup.querySelector('.input_type_name'),
+  input_name = popup.querySelector('.form__input_type_name'),
   // input с должностью
-  input_post = popup.querySelector('.input_type_post');
+  input_post = popup.querySelector('.form__input_type_post');
 
 // открыть popup
 function openPopup() {
