@@ -4,6 +4,7 @@
   width: 100%;
   background: #000000;
   border-radius: 2px;
+  margin-bottom: 25px;
 }
 
 .button_type_submit:hover {
@@ -14,5 +15,6 @@
   .button_type_submit {
     max-width: 358px;
     min-height: 50px;
+    margin-bottom: 37px;
   }
 }

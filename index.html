@@ -11,105 +11,95 @@
 
 <body class="page">
   <header class="page__header header">
-    <div>
-      <a href="https://simon-cat.github.io/mesto/" class="header__link"><img src="images/logo.svg" alt="Логотип"
-          class="header__logo logo"></a>
-    </div>
+    <a href="https://simon-cat.github.io/mesto/" class="header__link"><img src="images/logo.svg" alt="Логотип"
+        class="header__logo logo"></a>
   </header>
   <main class="content">
     <div class="content__profile profile">
-      <img src="images/avatar.jpg" alt="Фотография Жак-Ив Кусто" class="profile__avatar">
+      <img src="images/avatar.jpg" alt="Автарака пользователя" class="profile__avatar">
       <div class="profile__info">
         <div class="profile__heading">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <button class="button button_type_edit"></button>
+          <button type="button" class="button button_type_edit"></button>
         </div>
         <p class="profile__description">Исследователь океана</p>
       </div>
-      <button class="button button_type_add"></button>
+      <button type="button" class="button button_type_add"></button>
     </div>
-    <ul class="content__places">
-      <li>
-        <article class="place">
-          <div class="place__image-container">
+    <section class="content__places places">
+      <ul class="places__list">
+        <li>
+          <article class="place">
             <img src="images/place-karachaevsk.jpg" alt="Карачаевск" class="place__image">
-          </div>
-          <div class="place__heading-content">
-            <h2 class="place__title">Карачаевск</h2>
-            <button class="button button_type_like"></button>
-          </div>
-        </article>
-      </li>
-      <li>
-        <article class="place">
-          <div class="place__image-container">
+            <div class="place__heading-content">
+              <h2 class="place__title">Карачаевск</h2>
+              <button type="button" class="button button_type_like"></button>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="place">
             <img src="images/place-elbrus.jpg" alt="Эльбрус" class="place__image">
-          </div>
-          <div class="place__heading-content">
-            <h2 class="place__title">Гора Эльбрус</h2>
-            <button class="button button_type_like"></button>
-          </div>
-        </article>
-      </li>
-      <li>
-        <article class="place">
-          <div class="place__image-container">
+            <div class="place__heading-content">
+              <h2 class="place__title">Гора Эльбрус</h2>
+              <button type="button" class="button button_type_like"></button>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="place">
             <img src="images/place-dombai.jpg" alt="Домбай" class="place__image">
-          </div>
-          <div class="place__heading-content">
-            <h2 class="place__title">Домбай</h2>
-            <button class="button button_type_like"></button>
-          </div>
-        </article>
-      </li>
-      <li>
-        <article class="place">
-          <div class="place__image-container">
+            <div class="place__heading-content">
+              <h2 class="place__title">Домбай</h2>
+              <button type="button" class="button button_type_like"></button>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="place">
             <img src="images/place-elbrus.jpg" alt="Эльбрус" class="place__image">
-          </div>
-          <div class="place__heading-content">
-            <h2 class="place__title">Гора Эльбрус</h2>
-            <button class="button button_type_like"></button>
-          </div>
-        </article>
-      </li>
-      <li>
-        <article class="place">
-          <div class="place__image-container">
+            <div class="place__heading-content">
+              <h2 class="place__title">Гора Эльбрус</h2>
+              <button type="button" class="button button_type_like"></button>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="place">
             <img src="images/place-dombai.jpg" alt="Домбай" class="place__image">
-          </div>
-          <div class="place__heading-content">
-            <h2 class="place__title">Домбай</h2>
-            <button class="button button_type_like "></button>
-          </div>
-        </article>
-      </li>
-      <li>
-        <article class="place">
-          <div class="place__image-container">
+            <div class="place__heading-content">
+              <h2 class="place__title">Домбай</h2>
+              <button type="button" class="button button_type_like "></button>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="place">
             <img src="images/place-karachaevsk.jpg" alt="Карачаевск" class="place__image">
-          </div>
-          <div class="place__heading-content">
-            <h2 class="place__title">Карачаевск</h2>
-            <button class="button button_type_like"></button>
-          </div>
-        </article>
-      </li>
-    </ul>
+            <div class="place__heading-content">
+              <h2 class="place__title">Карачаевск</h2>
+              <button type="button" class="button button_type_like"></button>
+            </div>
+          </article>
+        </li>
+      </ul>
+    </section>
   </main>
   <footer class="page__footer footer">
     <p class="footer__text">&copy; 2020 Mesto Russia</p>
   </footer>
   <div class="popup">
-    <form action="#" class="popup__form form">
-      <h2 class="form__title">Редактировать профиль</h2>
-      <input type="text" value="Жак-Ив Кусто" class="input input_type_name">
-      <input type="text" value="Исследователь океана" class="input input_type_post">
-      <button type="submit" class="button button_type_submit">
-        <span class="button__text">Сохранить</span>
-      </button>
-      <button class="button button_type_close"></button>
-    </form>
+    <div class="popup__container">
+      <form action="#" name="userData" class="popup__form form">
+        <h2 class="form__title">Редактировать профиль</h2>
+        <input type="text" name="userName" class="form__input input_type_name">
+        <input type="text" name="userPost" class="form__input input_type_post">
+        <button type="submit" class="button button_type_submit">
+          <p class="button__text">Сохранить</p>
+        </button>
+        <button type="button" class="button button_type_close"></button>
+      </form>
+    </div>
   </div>
   <script src="scripts/index.js"></script>
 </body>

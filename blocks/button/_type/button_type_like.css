@@ -7,3 +7,7 @@
   background-color: transparent;
   margin-top: 5px;
 }
+
+.button_type_like:hover {
+  opacity: 0.5;
+}

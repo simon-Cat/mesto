@@ -38,9 +38,12 @@
 @import url(../blocks/profile/__title/profile__title.css);
 @import url(../blocks/profile/__description/profile__description.css);
 
+/* places */
+@import url(../blocks/places/places.css);
+@import url(../blocks/places/__list/places__list.css);
+
 /* place */
 @import url(../blocks/place/place.css);
-@import url(../blocks/place/__image-container/place__image-container.css);
 @import url(../blocks/place/__image/place__image.css);
 @import url(../blocks/place/__heading-content/place__heading-content.css);
 @import url(../blocks/place/__title/place__title.css);
@@ -51,13 +54,10 @@
 /* popup */
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__container/popup__container.css);
 
 /* form */
 @import url(../blocks/form/form.css);
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/form/__title/form__title.css);
-
-/* input */
-@import url(../blocks/input/input.css);
-@import url(../blocks/input/_type/input_type_name.css);
-@import url(../blocks/input/_type/input_type_post.css);
+@import url(../blocks/form/__input/form__input.css);

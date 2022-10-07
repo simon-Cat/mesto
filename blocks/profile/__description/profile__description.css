@@ -1,5 +1,5 @@
 .profile__description {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -14,9 +14,7 @@
 
 @media screen and (min-width: 768px) {
   .profile__description {
-    margin: 0;
     font-size: 16px;
-    line-height: 17px;
     text-align: left;
     max-width: 336px;
   }

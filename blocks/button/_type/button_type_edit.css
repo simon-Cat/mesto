@@ -1,5 +1,5 @@
 .button_type_edit {
-  background-color: #000;
+  background-color: transparent;
   min-width: 18px;
   height: 18px;
   background-image: url(../../../images/edit-button.svg);

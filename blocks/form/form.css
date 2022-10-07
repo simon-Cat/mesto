@@ -1,5 +1,4 @@
 .form {
-  min-height: 322px;
   min-width: 282px;
   max-width: 430px;
   display: flex;
@@ -9,10 +8,4 @@
   background-color: #ffffff;
   border-radius: 10px;
   position: relative;
-}
-
-@media screen and (min-width: 768px) {
-  .form {
-    min-height: 330px;
-  }
 }

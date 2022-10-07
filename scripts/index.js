@@ -1,40 +1,45 @@
+// блок profile
 let profile = document.querySelector('.profile'),
-  profile_title = profile.querySelector('.profile__title'),
-  profile_description = profile.querySelector('.profile__description'),
-  profile_edit_button = profile.querySelector('.button_type_edit'),
+  // элемент "title" в блоке profile
+  profileTitle = profile.querySelector('.profile__title'),
+  // элемент "description" в блоке profile
+  profileDescription = profile.querySelector('.profile__description'),
+  // элемент кнопки "редактировать" в блоке profile
+  profileEditButton = profile.querySelector('.button_type_edit'),
+  // блок popup
   popup = document.querySelector('.popup'),
-  popup_save_button = popup.querySelector('.button_type_submit'),
-  popup_close_button = popup.querySelector('.button_type_close'),
-  place_like_buttons = document.querySelectorAll('.button_type_like');
+  // форма блока popup
+  popupForm = popup.querySelector('.popup__form'),
+  // элемент кнопки "закрыть" в блоке popup
+  popupCloseButton = popup.querySelector('.button_type_close'),
+  // input с именем
+  input_name = popup.querySelector('.input_type_name'),
+  // input с должностью
+  input_post = popup.querySelector('.input_type_post');
 
-profile_edit_button.addEventListener('click', showHidenPopup);
-popup_close_button.addEventListener('click', showHidenPopup);
-popup_save_button.addEventListener('click', saveProfileChanges);
-
-for (let i = 0; i < place_like_buttons.length; i++) {
-  place_like_buttons[i].addEventListener('click', function () {
-    place_like_buttons[i].classList.toggle('button_active');
-  });
+// открыть popup
+function openPopup() {
+  input_name.value = profileTitle.textContent;
+  input_post.value = profileDescription.textContent;
+  popup.classList.add('popup_opened');
 }
 
-function showHidenPopup(evt) {
-  evt.preventDefault();
-
-  if (!popup.classList.contains('popup_opened')) {
-    popup.classList.add('popup_opened');
-  } else {
-    popup.classList.remove('popup_opened');
-  }
+// закрыть popup
+function closePopup() {
+  popup.classList.remove('popup_opened');
 }
 
+// сохранить изменения профиля
 function saveProfileChanges(evt) {
   evt.preventDefault();
 
-  let input_name = popup.querySelector('.input_type_name').value,
-    input_post = popup.querySelector('.input_type_post').value;
+  profileTitle.textContent = input_name.value;
+  profileDescription.textContent = input_post.value;
 
-  profile_title.textContent = input_name;
-  profile_description.textContent = input_post;
-
-  popup.classList.remove('popup_opened');
+  closePopup();
 }
+
+// вешаем события для кнопок: "редактировать" ,"закрыть", "сохранить"
+profileEditButton.addEventListener('click', openPopup);
+popupCloseButton.addEventListener('click', closePopup);
+popupForm.addEventListener('submit', saveProfileChanges);
