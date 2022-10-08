@@ -13,14 +13,14 @@ let profile = document.querySelector('.profile'),
   // элемент кнопки "закрыть" в блоке popup
   popupCloseButton = popup.querySelector('.button_type_close'),
   // input с именем
-  input_name = popup.querySelector('.form__input_type_name'),
+  inputName = popup.querySelector('.form__input_type_name'),
   // input с должностью
-  input_post = popup.querySelector('.form__input_type_post');
+  inputPost = popup.querySelector('.form__input_type_post');
 
 // открыть popup
 function openPopup() {
-  input_name.value = profileTitle.textContent;
-  input_post.value = profileDescription.textContent;
+  inputName.value = profileTitle.textContent;
+  inputPost.value = profileDescription.textContent;
   popup.classList.add('popup_opened');
 }
 
@@ -33,8 +33,8 @@ function closePopup() {
 function saveProfileChanges(evt) {
   evt.preventDefault();
 
-  profileTitle.textContent = input_name.value;
-  profileDescription.textContent = input_post.value;
+  profileTitle.textContent = inputName.value;
+  profileDescription.textContent = inputPost.value;
 
   closePopup();
 }
