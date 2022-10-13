@@ -34,7 +34,7 @@
   <footer class="page__footer footer">
     <p class="footer__text">&copy; 2020 Mesto Russia</p>
   </footer>
-  <div class="popup">
+  <div class="popup popup_type_edit">
     <div class="popup__container">
       <form action="#" name="userData" class="popup__form form">
         <h2 class="form__title">Редактировать профиль</h2>
@@ -42,6 +42,20 @@
         <input type="text" name="userPost" class="form__input form__input_type_post">
         <button type="submit" class="button button_type_submit">
           <span class="button__text">Сохранить</span>
+        </button>
+        <button type="button" class="button button_type_close"></button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_type_add">
+    <div class="popup__container">
+      <form action="#" name="userData" class="popup__form form">
+        <h2 class="form__title">Новое место</h2>
+        <input type="text" name="placeName" placeholder="Название" class="form__input form__input_type_place-name">
+        <input type="text" name="placeSource" placeholder="Ссылка на картинку"
+          class="form__input form__input_type_place-source">
+        <button type="submit" class="button button_type_submit">
+          <span class="button__text">Создать</span>
         </button>
         <button type="button" class="button button_type_close"></button>
       </form>
