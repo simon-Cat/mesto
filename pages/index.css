@@ -28,6 +28,7 @@
 @import url(../blocks/button/_type/button_type_like.css);
 @import url(../blocks/button/_type/button_type_close.css);
 @import url(../blocks/button/_type/button_type_submit.css);
+@import url(../blocks/button/_type/button_type_remove.css);
 @import url(../blocks/button/_active/button_active.css);
 @import url(../blocks/button/__text/button__text.css);
 

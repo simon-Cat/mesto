@@ -36,6 +36,9 @@ function addInitialPlaceCard() {
     const likeButton = placeCard.querySelector('.button_type_like');
     likeButton.addEventListener('click', like);
 
+    const removeButton = placeCard.querySelector('.button_type_remove');
+    removeButton.addEventListener('click', removePlaceCard);
+
     // элемент списка li
     const listItem = document.createElement('li');
 
@@ -156,6 +159,9 @@ function addNewImage(evt) {
   const likeButton = placeCard.querySelector('.button_type_like');
   likeButton.addEventListener('click', like);
 
+  const removeButton = placeCard.querySelector('.button_type_remove');
+  removeButton.addEventListener('click', removePlaceCard);
+
   // элемент списка li
   const listItem = document.createElement('li');
 
@@ -176,6 +182,11 @@ function addNewImage(evt) {
 function like(evt) {
   const likeButton = evt.target;
   likeButton.classList.toggle('button_active');
+}
+
+function removePlaceCard(evt) {
+  const removedPlaceCard = evt.target.closest('li');
+  removedPlaceCard.remove();
 }
 
 // вешаем события для кнопок: "редактировать", "добавить", "закрыть"
