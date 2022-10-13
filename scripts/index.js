@@ -33,6 +33,9 @@ function addInitialPlaceCard() {
     // текст для элемента place__title
     placeTitle.textContent = item.name;
 
+    const likeButton = placeCard.querySelector('.button_type_like');
+    likeButton.addEventListener('click', like);
+
     // элемент списка li
     const listItem = document.createElement('li');
 
@@ -150,6 +153,9 @@ function addNewImage(evt) {
   // текст для элемента place__title
   placeTitle.textContent = inputPlaceName.value;
 
+  const likeButton = placeCard.querySelector('.button_type_like');
+  likeButton.addEventListener('click', like);
+
   // элемент списка li
   const listItem = document.createElement('li');
 
@@ -165,6 +171,11 @@ function addNewImage(evt) {
 
   // закрыть popup
   closePopup(evt);
+}
+
+function like(evt) {
+  const likeButton = evt.target;
+  likeButton.classList.toggle('button_active');
 }
 
 // вешаем события для кнопок: "редактировать", "добавить", "закрыть"
