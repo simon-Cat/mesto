@@ -11,47 +11,6 @@ const initialCards = [
 // блок places__list
 const placesList = document.querySelector('.places__list');
 
-function addInitialPlaceCard() {
-  initialCards.forEach((item) => {
-    // клон template блока place
-    const placeTemplate = document
-      .querySelector('#place')
-      .content.cloneNode(true);
-
-    // блок place
-    const placeCard = placeTemplate.querySelector('.place');
-
-    // элемент title блока place
-    const placeImage = placeCard.querySelector('.place__image');
-
-    // элемент img блока place
-    const placeTitle = placeCard.querySelector('.place__title');
-    // атрибуты src и alt для элемента place__image
-    placeImage.setAttribute('alt', item.name);
-    placeImage.setAttribute('src', item.link);
-
-    // текст для элемента place__title
-    placeTitle.textContent = item.name;
-
-    const likeButton = placeCard.querySelector('.button_type_like');
-    likeButton.addEventListener('click', like);
-
-    const removeButton = placeCard.querySelector('.button_type_remove');
-    removeButton.addEventListener('click', removePlaceCard);
-
-    // элемент списка li
-    const listItem = document.createElement('li');
-
-    // Добавление блока place в элемент списка li
-    listItem.append(placeCard);
-
-    // Добавление элемента списка li с блоком place в блок places__list
-    placesList.append(listItem);
-  });
-}
-
-addInitialPlaceCard();
-
 // блок profile
 const profile = document.querySelector('.profile');
 
@@ -93,6 +52,23 @@ const inputName = document.querySelector('.form__input_type_name');
 // input с должностью
 const inputPost = document.querySelector('.form__input_type_post');
 
+// input с "названием места"
+const inputPlaceName = document.querySelector('.form__input_type_place-name');
+
+// input "ссылка на изображение"
+const inputPlaceSource = document.querySelector(
+  '.form__input_type_place-source'
+);
+
+// отобразить 6 начальных карточек "мест"
+function addInitialPlaceCard(evt) {
+  initialCards.forEach((item) => {
+    addNewPlaceCard(evt, item);
+  });
+}
+
+addInitialPlaceCard();
+
 // открыть popup
 function openPopup(evt) {
   const eventButtonClasses = evt.target.classList;
@@ -123,17 +99,24 @@ function saveProfileChanges(evt) {
   closePopup(evt);
 }
 
-// добавление новых фотографий
-function addNewImage(evt) {
-  evt.preventDefault();
+// добавление новой карочки "места"
+function addNewPlaceCard(evt, place) {
+  // переменные для хранения названия места и
+  // ссылки на его изображение
+  let placeName = null;
+  let placeSource = null;
 
-  // input с "названием места"
-  const inputPlaceName = document.querySelector('.form__input_type_place-name');
-
-  // input "ссылка на изображение"
-  const inputPlaceSource = document.querySelector(
-    '.form__input_type_place-source'
-  );
+  // если передано "место" из массива "initialCards",
+  // то в переменные сохраняем значения свойств "name" и "link",
+  // иначе сохраняем значения из полей input
+  if (place) {
+    placeName = place.name;
+    placeSource = place.link;
+  } else {
+    evt.preventDefault();
+    placeName = inputPlaceName.value;
+    placeSource = inputPlaceSource.value;
+  }
 
   // клон template блока place
   const placeTemplate = document
@@ -147,18 +130,20 @@ function addNewImage(evt) {
   const placeImage = placeCard.querySelector('.place__image');
 
   // атрибуты src и alt для элемента place__image
-  placeImage.setAttribute('alt', inputPlaceName.value);
-  placeImage.setAttribute('src', inputPlaceSource.value);
+  placeImage.setAttribute('alt', placeName);
+  placeImage.setAttribute('src', placeSource);
 
   // элемент title блока place
   const placeTitle = placeCard.querySelector('.place__title');
 
   // текст для элемента place__title
-  placeTitle.textContent = inputPlaceName.value;
+  placeTitle.textContent = placeName;
 
+  // кнопка "like" и обработчик события к ней
   const likeButton = placeCard.querySelector('.button_type_like');
   likeButton.addEventListener('click', like);
 
+  // кнопка "remove" и обработчик события к ней
   const removeButton = placeCard.querySelector('.button_type_remove');
   removeButton.addEventListener('click', removePlaceCard);
 
@@ -171,19 +156,19 @@ function addNewImage(evt) {
   // Добавление элемента списка li с блоком place в блок places__list
   placesList.prepend(listItem);
 
-  // очищаем значения полей input
-  inputPlaceName.value = null;
-  inputPlaceSource.value = null;
-
-  // закрыть popup
-  closePopup(evt);
+  // если есть объект "evt", то закрываем popup через функцию
+  if (evt) {
+    closePopup(evt);
+  }
 }
 
+// поставить/убрать "like"
 function like(evt) {
   const likeButton = evt.target;
   likeButton.classList.toggle('button_active');
 }
 
+// удалить карточку "места"
 function removePlaceCard(evt) {
   const removedPlaceCard = evt.target.closest('li');
   removedPlaceCard.remove();
@@ -198,4 +183,4 @@ popupCloseButton.forEach((item) => {
 
 // вешаем события для форм: "сохранить изменения", "добавить новое место"
 editPopupForm.addEventListener('submit', saveProfileChanges);
-addPopupForm.addEventListener('submit', addNewImage);
+addPopupForm.addEventListener('submit', addNewPlaceCard);
