@@ -55,7 +55,11 @@
 /* popup */
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/_type/popup_type_full-image.css);
 @import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__figure/popup__figure.css);
+@import url(../blocks/popup/__full-image/popup__full-image.css);
+@import url(../blocks/popup/__text/popup__text.css);
 
 /* form */
 @import url(../blocks/form/form.css);

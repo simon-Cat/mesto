@@ -38,6 +38,9 @@ const editPopupForm = popup.querySelector('.popup_type_edit .popup__form');
 // блок popup для добавления новых фотографий
 const popupBlockAdd = document.querySelector('.popup_type_add');
 
+// блок popup для отображения изображения места в полный размер
+const popupBlockFullImage = document.querySelector('.popup_type_full-image');
+
 // форма блока popup для добавления новых фотографий
 const addPopupForm = document.querySelector('.popup_type_add .popup__form');
 
@@ -47,10 +50,10 @@ const popupCloseButton = Array.from(
 );
 
 // input с именем
-const inputName = document.querySelector('.form__input_type_name');
+const inputProfileName = document.querySelector('.form__input_type_name');
 
 // input с должностью
-const inputPost = document.querySelector('.form__input_type_post');
+const inputProfilePost = document.querySelector('.form__input_type_post');
 
 // input с "названием места"
 const inputPlaceName = document.querySelector('.form__input_type_place-name');
@@ -74,12 +77,20 @@ function openPopup(evt) {
   const eventButtonClasses = evt.target.classList;
 
   if (eventButtonClasses.contains('button_type_edit')) {
-    inputName.value = profileTitle.textContent;
-    inputPost.value = profileDescription.textContent;
+    inputProfileName.value = profileTitle.textContent;
+    inputProfilePost.value = profileDescription.textContent;
 
     popupBlockEdit.classList.add('popup_opened');
-  } else {
+  } else if (eventButtonClasses.contains('button_type_add')) {
     popupBlockAdd.classList.add('popup_opened');
+  } else {
+    const fullImageSource =
+      popupBlockFullImage.querySelector('.popup__full-image');
+    fullImageSource.setAttribute('src', evt.target.currentSrc);
+
+    const fullImageText = popupBlockFullImage.querySelector('.popup__text');
+    fullImageText.textContent = evt.target.alt;
+    popupBlockFullImage.classList.add('popup_opened');
   }
 }
 
@@ -93,10 +104,14 @@ function closePopup(evt) {
 function saveProfileChanges(evt) {
   evt.preventDefault();
 
-  profileTitle.textContent = inputName.value;
-  profileDescription.textContent = inputPost.value;
+  profileTitle.textContent = inputProfileName.value;
+  profileDescription.textContent = inputProfilePost.value;
 
+  // закрыть popup
   closePopup(evt);
+
+  // очистить поля input
+  clearInputField(inputProfileName, inputProfilePost);
 }
 
 // добавление новой карочки "места"
@@ -133,6 +148,8 @@ function addNewPlaceCard(evt, place) {
   placeImage.setAttribute('alt', placeName);
   placeImage.setAttribute('src', placeSource);
 
+  placeImage.addEventListener('click', openPopup);
+
   // элемент title блока place
   const placeTitle = placeCard.querySelector('.place__title');
 
@@ -160,6 +177,9 @@ function addNewPlaceCard(evt, place) {
   if (evt) {
     closePopup(evt);
   }
+
+  // очистить поля input
+  clearInputField(inputPlaceName, inputPlaceSource);
 }
 
 // поставить/убрать "like"
@@ -172,6 +192,12 @@ function like(evt) {
 function removePlaceCard(evt) {
   const removedPlaceCard = evt.target.closest('li');
   removedPlaceCard.remove();
+}
+
+// удалить значения полей input
+function clearInputField(inputField_1, inputField_2) {
+  inputField_1.value = null;
+  inputField_2.value = null;
 }
 
 // вешаем события для кнопок: "редактировать", "добавить", "закрыть"
