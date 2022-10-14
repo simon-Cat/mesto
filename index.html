@@ -34,7 +34,7 @@
   <footer class="page__footer footer">
     <p class="footer__text">&copy; 2020 Mesto Russia</p>
   </footer>
-  <div class="popup popup_type_edit">
+  <div class="popup popup_type_edit popup_hidden">
     <div class="popup__container">
       <form action="#" name="userData" class="popup__form form">
         <h2 class="form__title">Редактировать профиль</h2>
@@ -47,7 +47,7 @@
       </form>
     </div>
   </div>
-  <div class="popup popup_type_add">
+  <div class="popup popup_type_add popup_hidden">
     <div class="popup__container">
       <form action="#" name="userData" class="popup__form form">
         <h2 class="form__title">Новое место</h2>
@@ -61,12 +61,12 @@
       </form>
     </div>
   </div>
-  <div class="popup popup_type_full-image">
+  <div class="popup popup_type_full-image popup_hidden">
     <div class="popup__container">
       <figure class="popup__figure">
-        <img src="images/abkhazia.jpg" alt="Абхазия" class="popup__full-image">
+        <img src="images/abkhazia.jpg" alt="" class="popup__full-image">
         <figcaption>
-          <p class="popup__text">Абхазия</p>
+          <p class="popup__text"></p>
         </figcaption>
         <button type="button" class="button button_type_close"></button>
       </figure>

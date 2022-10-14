@@ -1,11 +1,21 @@
+// Удаляем класс "popup_hidden" у всех блоков popup.
+// Сделано с целью скрыть исчезающий popup во время презагрузки страницы
+window.addEventListener('load', () => {
+  const popus = Array.from(document.querySelectorAll('.popup'));
+
+  popus.forEach((popup) => {
+    popup.classList.remove('popup_hidden');
+  });
+});
+
 // 6 карточек при загрузке страницы
 const initialCards = [
-  { name: 'Абхазия', link: '../images/abkhazia.jpg' },
-  { name: 'Краснодар', link: '../images/krasnodar.jpg' },
-  { name: 'Москва', link: '../images/moscow.jpg' },
-  { name: 'Новороссийск', link: '../images/novorossysk.jpg' },
-  { name: 'Сочи', link: '../images/sohi.jpg' },
-  { name: 'Санкт-Петербург', link: '../images/st-peterburg.jpg' },
+  { name: 'Абхазия', link: './images/abkhazia.jpg' },
+  { name: 'Краснодар', link: './images/krasnodar.jpg' },
+  { name: 'Москва', link: './images/moscow.jpg' },
+  { name: 'Новороссийск', link: './images/novorossysk.jpg' },
+  { name: 'Сочи', link: './images/sohi.jpg' },
+  { name: 'Санкт-Петербург', link: './images/st-peterburg.jpg' },
 ];
 
 // блок places__list
