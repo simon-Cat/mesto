@@ -28,67 +28,13 @@
     </div>
     <section class="content__places places">
       <ul class="places__list">
-        <li>
-          <article class="place">
-            <img src="images/place-karachaevsk.jpg" alt="Карачаевск" class="place__image">
-            <div class="place__heading-content">
-              <h2 class="place__title">Карачаевск</h2>
-              <button type="button" class="button button_type_like"></button>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article class="place">
-            <img src="images/place-elbrus.jpg" alt="Эльбрус" class="place__image">
-            <div class="place__heading-content">
-              <h2 class="place__title">Гора Эльбрус</h2>
-              <button type="button" class="button button_type_like"></button>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article class="place">
-            <img src="images/place-dombai.jpg" alt="Домбай" class="place__image">
-            <div class="place__heading-content">
-              <h2 class="place__title">Домбай</h2>
-              <button type="button" class="button button_type_like"></button>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article class="place">
-            <img src="images/place-elbrus.jpg" alt="Эльбрус" class="place__image">
-            <div class="place__heading-content">
-              <h2 class="place__title">Гора Эльбрус</h2>
-              <button type="button" class="button button_type_like"></button>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article class="place">
-            <img src="images/place-dombai.jpg" alt="Домбай" class="place__image">
-            <div class="place__heading-content">
-              <h2 class="place__title">Домбай</h2>
-              <button type="button" class="button button_type_like "></button>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article class="place">
-            <img src="images/place-karachaevsk.jpg" alt="Карачаевск" class="place__image">
-            <div class="place__heading-content">
-              <h2 class="place__title">Карачаевск</h2>
-              <button type="button" class="button button_type_like"></button>
-            </div>
-          </article>
-        </li>
       </ul>
     </section>
   </main>
   <footer class="page__footer footer">
     <p class="footer__text">&copy; 2020 Mesto Russia</p>
   </footer>
-  <div class="popup">
+  <div class="popup popup_type_edit popup_hidden">
     <div class="popup__container">
       <form action="#" name="userData" class="popup__form form">
         <h2 class="form__title">Редактировать профиль</h2>
@@ -101,6 +47,43 @@
       </form>
     </div>
   </div>
+  <div class="popup popup_type_add popup_hidden">
+    <div class="popup__container">
+      <form action="#" name="userData" class="popup__form form">
+        <h2 class="form__title">Новое место</h2>
+        <input type="text" name="placeName" placeholder="Название" class="form__input form__input_type_place-name">
+        <input type="text" name="placeSource" placeholder="Ссылка на картинку"
+          class="form__input form__input_type_place-source">
+        <button type="submit" class="button button_type_submit">
+          <span class="button__text">Создать</span>
+        </button>
+        <button type="button" class="button button_type_close"></button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_type_full-image popup_hidden">
+    <div class="popup__container">
+      <div class="popup__content">
+        <figure class="popup__figure">
+          <img src="some source" alt="some alt" class="popup__full-image">
+          <figcaption>
+            <p class="popup__text"></p>
+          </figcaption>
+        </figure>
+        <button type="button" class="button button_type_close"></button>
+      </div>
+    </div>
+  </div>
+  <template id="place">
+    <article class="place">
+      <img src="" alt="" class="place__image">
+      <button class="button button_type_remove"></button>
+      <div class="place__heading-content">
+        <h2 class="place__title"></h2>
+        <button type="button" class="button button_type_like"></button>
+      </div>
+    </article>
+  </template>
   <script src="scripts/index.js"></script>
 </body>
 

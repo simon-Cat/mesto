@@ -5,5 +5,7 @@
   left: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  display: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
