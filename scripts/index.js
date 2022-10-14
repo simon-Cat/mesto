@@ -96,6 +96,7 @@ function openPopup(evt) {
     popupBlockAdd.classList.add('popup_opened');
   } else {
     popupBlockFullImageSource.setAttribute('src', evt.target.currentSrc);
+    popupBlockFullImageSource.setAttribute('alt', evt.target.alt);
     popupBlockFullImageText.textContent = evt.target.alt;
     popupBlockFullImage.classList.add('popup_opened');
   }
