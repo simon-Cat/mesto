@@ -36,23 +36,26 @@ const profileEditButton = profile.querySelector('.button_type_edit');
 // элемент кнопки "Добавить изображение" в блоке profile
 const profileAddButton = profile.querySelector('.button_type_add');
 
-// блок popup
-const popup = document.querySelector('.popup');
-
 // блок popup для редактирование данных профиля
 const popupBlockEdit = document.querySelector('.popup_type_edit');
 
 // форма блока popup для редактирование данных профиля
-const editPopupForm = popup.querySelector('.popup_type_edit .popup__form');
+const editPopupForm = document.querySelector('.popup_type_edit .popup__form');
 
 // блок popup для добавления новых фотографий
 const popupBlockAdd = document.querySelector('.popup_type_add');
 
+// форма блока popup для добавления новых фотографий
+const addPopupForm = document.querySelector('.popup_type_add .popup__form');
+
 // блок popup для отображения изображения места в полный размер
 const popupBlockFullImage = document.querySelector('.popup_type_full-image');
 
-// форма блока popup для добавления новых фотографий
-const addPopupForm = document.querySelector('.popup_type_add .popup__form');
+// полное изображение блока popup
+const popupBlockFullImageSource = document.querySelector('.popup__full-image');
+
+// подпись для полного изображения
+const popupBlockFullImageText = document.querySelector('.popup__text');
 
 // элемент кнопки "закрыть" в блоке popup
 const popupCloseButton = Array.from(
@@ -74,13 +77,11 @@ const inputPlaceSource = document.querySelector(
 );
 
 // отобразить 6 начальных карточек "мест"
-function addInitialPlaceCard(evt) {
+function addInitialPlaceCards(evt) {
   initialCards.forEach((item) => {
     addNewPlaceCard(evt, item);
   });
 }
-
-addInitialPlaceCard();
 
 // открыть popup
 function openPopup(evt) {
@@ -94,12 +95,8 @@ function openPopup(evt) {
   } else if (eventButtonClasses.contains('button_type_add')) {
     popupBlockAdd.classList.add('popup_opened');
   } else {
-    const fullImageSource =
-      popupBlockFullImage.querySelector('.popup__full-image');
-    fullImageSource.setAttribute('src', evt.target.currentSrc);
-
-    const fullImageText = popupBlockFullImage.querySelector('.popup__text');
-    fullImageText.textContent = evt.target.alt;
+    popupBlockFullImageSource.setAttribute('src', evt.target.currentSrc);
+    popupBlockFullImageText.textContent = evt.target.alt;
     popupBlockFullImage.classList.add('popup_opened');
   }
 }
@@ -107,7 +104,7 @@ function openPopup(evt) {
 // закрыть popup
 function closePopup(evt) {
   const popupClosedBlock = evt.target.closest('.popup');
-  popupClosedBlock.closest('.popup').classList.remove('popup_opened');
+  popupClosedBlock.classList.remove('popup_opened');
 }
 
 // сохранить изменения профиля
@@ -121,7 +118,7 @@ function saveProfileChanges(evt) {
   closePopup(evt);
 
   // очистить поля input
-  clearInputField(inputProfileName, inputProfilePost);
+  clearInputFields(inputProfileName, inputProfilePost);
 }
 
 // добавление новой карочки "места"
@@ -139,6 +136,7 @@ function addNewPlaceCard(evt, place) {
     placeSource = place.link;
   } else {
     evt.preventDefault();
+
     placeName = inputPlaceName.value;
     placeSource = inputPlaceSource.value;
   }
@@ -189,7 +187,7 @@ function addNewPlaceCard(evt, place) {
   }
 
   // очистить поля input
-  clearInputField(inputPlaceName, inputPlaceSource);
+  clearInputFields(inputPlaceName, inputPlaceSource);
 }
 
 // поставить/убрать "like"
@@ -198,17 +196,20 @@ function like(evt) {
   likeButton.classList.toggle('button_active');
 }
 
-// удалить карточку "места"
+// удалить карточку "место"
 function removePlaceCard(evt) {
   const removedPlaceCard = evt.target.closest('li');
   removedPlaceCard.remove();
 }
 
 // удалить значения полей input
-function clearInputField(inputField_1, inputField_2) {
+function clearInputFields(inputField_1, inputField_2) {
   inputField_1.value = null;
   inputField_2.value = null;
 }
+
+// добавляем 6 первых карточек
+addInitialPlaceCards();
 
 // вешаем события для кнопок: "редактировать", "добавить", "закрыть"
 profileEditButton.addEventListener('click', openPopup);
