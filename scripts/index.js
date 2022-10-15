@@ -1,9 +1,9 @@
 // Удаляем класс "popup_hidden" у всех блоков popup.
 // Сделано с целью скрыть исчезающий popup во время презагрузки страницы
 window.addEventListener('load', () => {
-  const popus = Array.from(document.querySelectorAll('.popup'));
+  const popups = Array.from(document.querySelectorAll('.popup'));
 
-  popus.forEach((popup) => {
+  popups.forEach((popup) => {
     popup.classList.remove('popup_hidden');
   });
 });
@@ -58,7 +58,7 @@ const popupBlockFullImageSource = document.querySelector('.popup__full-image');
 const popupBlockFullImageText = document.querySelector('.popup__text');
 
 // элемент кнопки "закрыть" в блоке popup
-const popupCloseButton = Array.from(
+const popupCloseButtons = Array.from(
   document.querySelectorAll('.button_type_close')
 );
 
@@ -84,28 +84,20 @@ function addInitialPlaceCards(evt) {
 }
 
 // открыть popup
-function openPopup(evt) {
-  const eventButtonClasses = evt.target.classList;
-
-  if (eventButtonClasses.contains('button_type_edit')) {
-    inputProfileName.value = profileTitle.textContent;
-    inputProfilePost.value = profileDescription.textContent;
-
-    popupBlockEdit.classList.add('popup_opened');
-  } else if (eventButtonClasses.contains('button_type_add')) {
-    popupBlockAdd.classList.add('popup_opened');
-  } else {
-    popupBlockFullImageSource.setAttribute('src', evt.target.currentSrc);
-    popupBlockFullImageSource.setAttribute('alt', evt.target.alt);
-    popupBlockFullImageText.textContent = evt.target.alt;
-    popupBlockFullImage.classList.add('popup_opened');
-  }
+function openPopup(popupBlock) {
+  popupBlock.classList.add('popup_opened');
 }
 
 // закрыть popup
 function closePopup(evt) {
   const popupClosedBlock = evt.target.closest('.popup');
   popupClosedBlock.classList.remove('popup_opened');
+}
+
+// установить данные в полях input в блоке profile
+function setInitialProfileData() {
+  inputProfileName.value = profileTitle.textContent;
+  inputProfilePost.value = profileDescription.textContent;
 }
 
 // сохранить изменения профиля
@@ -123,7 +115,23 @@ function saveProfileChanges(evt) {
 }
 
 // добавление новой карочки "места"
-function addNewPlaceCard(evt, place) {
+function addNewPlaceCard(evt, initialPlace) {
+  const newPlaceCard = createPlaceCard(initialPlace);
+
+  // Добавление элемента списка li с блоком place в блок places__list
+  placesList.prepend(newPlaceCard);
+
+  // если есть объект "evt", то закрываем popup через функцию
+  if (evt) {
+    evt.preventDefault();
+    closePopup(evt);
+  }
+
+  // очистить поля input
+  clearInputFields(inputPlaceName, inputPlaceSource);
+}
+
+function createPlaceCard(initialPlace) {
   // переменные для хранения названия места и
   // ссылки на его изображение
   let placeName = null;
@@ -132,12 +140,10 @@ function addNewPlaceCard(evt, place) {
   // если передано "место" из массива "initialCards",
   // то в переменные сохраняем значения свойств "name" и "link",
   // иначе сохраняем значения из полей input
-  if (place) {
-    placeName = place.name;
-    placeSource = place.link;
+  if (initialPlace) {
+    placeName = initialPlace.name;
+    placeSource = initialPlace.link;
   } else {
-    evt.preventDefault();
-
     placeName = inputPlaceName.value;
     placeSource = inputPlaceSource.value;
   }
@@ -146,6 +152,9 @@ function addNewPlaceCard(evt, place) {
   const placeTemplate = document
     .querySelector('#place')
     .content.cloneNode(true);
+
+  // элемент списка li
+  const placeListItem = placeTemplate.querySelector('li');
 
   // блок place
   const placeCard = placeTemplate.querySelector('.place');
@@ -157,7 +166,15 @@ function addNewPlaceCard(evt, place) {
   placeImage.setAttribute('alt', placeName);
   placeImage.setAttribute('src', placeSource);
 
-  placeImage.addEventListener('click', openPopup);
+  // установить атрибуты для изображения и текст для подписи к изображению
+  placeImage.addEventListener('click', () => {
+    popupBlockFullImageSource.setAttribute('src', placeSource);
+    popupBlockFullImageSource.setAttribute('alt', placeName);
+    popupBlockFullImageText.textContent = placeName;
+  });
+
+  // открыть popup с увеличеным изображением
+  placeImage.addEventListener('click', () => openPopup(popupBlockFullImage));
 
   // элемент title блока place
   const placeTitle = placeCard.querySelector('.place__title');
@@ -173,22 +190,7 @@ function addNewPlaceCard(evt, place) {
   const removeButton = placeCard.querySelector('.button_type_remove');
   removeButton.addEventListener('click', removePlaceCard);
 
-  // элемент списка li
-  const listItem = document.createElement('li');
-
-  // Добавление блока place в элемент списка li
-  listItem.append(placeCard);
-
-  // Добавление элемента списка li с блоком place в блок places__list
-  placesList.prepend(listItem);
-
-  // если есть объект "evt", то закрываем popup через функцию
-  if (evt) {
-    closePopup(evt);
-  }
-
-  // очистить поля input
-  clearInputFields(inputPlaceName, inputPlaceSource);
+  return placeListItem;
 }
 
 // поставить/убрать "like"
@@ -213,9 +215,10 @@ function clearInputFields(inputField_1, inputField_2) {
 addInitialPlaceCards();
 
 // вешаем события для кнопок: "редактировать", "добавить", "закрыть"
-profileEditButton.addEventListener('click', openPopup);
-profileAddButton.addEventListener('click', openPopup);
-popupCloseButton.forEach((item) => {
+profileEditButton.addEventListener('click', setInitialProfileData);
+profileEditButton.addEventListener('click', () => openPopup(popupBlockEdit));
+profileAddButton.addEventListener('click', () => openPopup(popupBlockAdd));
+popupCloseButtons.forEach((item) => {
   item.addEventListener('click', closePopup);
 });
 

@@ -49,7 +49,7 @@
   </div>
   <div class="popup popup_type_add popup_hidden">
     <div class="popup__container">
-      <form action="#" name="userData" class="popup__form form">
+      <form action="#" name="placeData" class="popup__form form">
         <h2 class="form__title">Новое место</h2>
         <input type="text" name="placeName" placeholder="Название" class="form__input form__input_type_place-name">
         <input type="text" name="placeSource" placeholder="Ссылка на картинку"
@@ -75,14 +75,16 @@
     </div>
   </div>
   <template id="place">
-    <article class="place">
-      <img src="#" alt="github" class="place__image">
-      <button class="button button_type_remove"></button>
-      <div class="place__heading-content">
-        <h2 class="place__title"></h2>
-        <button type="button" class="button button_type_like"></button>
-      </div>
-    </article>
+    <li>
+      <article class="place">
+        <img src="#" alt="github" class="place__image">
+        <button class="button button_type_remove"></button>
+        <div class="place__heading-content">
+          <h2 class="place__title"></h2>
+          <button type="button" class="button button_type_like"></button>
+        </div>
+      </article>
+    </li>
   </template>
   <script src="scripts/index.js"></script>
 </body>
