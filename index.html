@@ -32,14 +32,18 @@
     </section>
   </main>
   <footer class="page__footer footer">
-    <p class="footer__text">&copy; 2020 Mesto Russia</p>
+    <p class="footer__text">&copy; 2022 Mesto Russia</p>
   </footer>
   <div class="popup popup_type_edit popup_hidden">
     <div class="popup__container">
-      <form action="#" name="userData" class="popup__form form">
+      <form action="#" name="userData" class="popup__form form" novalidate>
         <h2 class="form__title">Редактировать профиль</h2>
-        <input type="text" name="userName" class="form__input form__input_type_name">
-        <input type="text" name="userPost" class="form__input form__input_type_post">
+        <input required minlength="2" maxlength="40" type="text" name="userName"
+          class="form__input form__input_type_name" id="name-input" placeholder="Имя">
+        <span class="form__input-error name-input-error"></span>
+        <input required minlength="2" maxlength="200" type="text" name="userPost"
+          class="form__input form__input_type_post" id="post-input" placeholder="О себе">
+        <span class="form__input-error post-input-error"></span>
         <button type="submit" class="button button_type_submit">
           <span class="button__text">Сохранить</span>
         </button>
@@ -49,11 +53,14 @@
   </div>
   <div class="popup popup_type_add popup_hidden">
     <div class="popup__container">
-      <form action="#" name="placeData" class="popup__form form">
+      <form action="#" name="placeData" class="popup__form form" novalidate>
         <h2 class="form__title">Новое место</h2>
-        <input type="text" name="placeName" placeholder="Название" class="form__input form__input_type_place-name">
-        <input type="text" name="placeSource" placeholder="Ссылка на картинку"
+        <input required minlength="2" maxlength="30" type="text" name="placeName" id="place-name-input"
+          placeholder="Название" class="form__input form__input_type_place-name">
+        <span class="form__input-error place-name-input-error"></span>
+        <input required type="url" name="placeSource" id="place-source-input" placeholder="Ссылка на картинку"
           class="form__input form__input_type_place-source">
+        <span class="form__input-error place-source-input-error"></span>
         <button type="submit" class="button button_type_submit">
           <span class="button__text">Создать</span>
         </button>
@@ -86,7 +93,10 @@
       </article>
     </li>
   </template>
-  <script src="scripts/index.js"></script>
+
+  <script defer src="./scripts/validate.js"></script>
+  <script defer src="./scripts/index.js"></script>
+
 </body>
 
 </html>
