@@ -227,3 +227,5 @@ popupCloseButtons.forEach((item) => {
 // вешаем события для форм: "сохранить изменения", "добавить новое место"
 editPopupForm.addEventListener('submit', saveProfileChanges);
 addPopupForm.addEventListener('submit', addNewPlaceCard);
+
+enableValidation(config);
