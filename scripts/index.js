@@ -85,11 +85,15 @@ function addInitialPlaceCards(evt) {
 
 // открыть popup
 function openPopup(popupBlock) {
+  setKeyboardEvent();
+
   popupBlock.classList.add('popup_opened');
 }
 
 // закрыть popup
 function closePopup(evt) {
+  removeKeyboardEvent();
+
   const popupClosedBlock = evt.target.closest('.popup');
   popupClosedBlock.classList.remove('popup_opened');
 }
@@ -99,6 +103,10 @@ function closePopup(evt) {
 function setInitialProfileData() {
   inputProfileName.value = profileTitle.textContent;
   inputProfilePost.value = profileDescription.textContent;
+
+  // проверка полей формы "Редактировать профиль"
+  checkInputValidity(editPopupForm, inputProfileName, config);
+  checkInputValidity(editPopupForm, inputProfilePost, config);
 
   openPopup(popupBlockEdit);
 }
@@ -214,6 +222,36 @@ function clearInputFields(inputField_1, inputField_2) {
   inputField_2.value = null;
 }
 
+// закрытие popup через оверлей
+function closePopupWithOverlay(evt) {
+  if (evt.target.classList.contains('popup__container')) {
+    closePopup(evt);
+  }
+
+  return;
+}
+
+// добавить слушатель на нажатие кнопки ESC
+function setKeyboardEvent() {
+  document.addEventListener('keydown', closePopupWithEscapeKey);
+}
+
+// удалить слушатель на нажатие кнопки ESC
+function removeKeyboardEvent() {
+  document.removeEventListener('keydown', closePopupWithEscapeKey);
+}
+
+// закрытие popup через клавишу ESC
+function closePopupWithEscapeKey(evt) {
+  if (evt.keyCode === 27) {
+    removeKeyboardEvent();
+
+    const closedPopup = document.querySelector('.popup_opened');
+
+    closedPopup.classList.remove('popup_opened');
+  }
+}
+
 // добавляем 6 первых карточек
 addInitialPlaceCards();
 
@@ -223,6 +261,9 @@ profileAddButton.addEventListener('click', () => openPopup(popupBlockAdd));
 popupCloseButtons.forEach((item) => {
   item.addEventListener('click', closePopup);
 });
+
+// закрытие popup через оверлей
+document.addEventListener('mousedown', closePopupWithOverlay);
 
 // вешаем события для форм: "сохранить изменения", "добавить новое место"
 editPopupForm.addEventListener('submit', saveProfileChanges);

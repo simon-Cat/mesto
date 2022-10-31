@@ -28,7 +28,12 @@ const showInputError = (
 };
 
 // скрываем ошибки
-const hideInputError = (formElement, inputElement, errorInputClass) => {
+const hideInputError = (
+  formElement,
+  inputElement,
+  errorInputClass,
+  errorElementClass
+) => {
   // поиск элемента span с текстом ошибки
   const inputErrorElement = formElement.querySelector(
     `.${inputElement.id}-error`
@@ -37,7 +42,7 @@ const hideInputError = (formElement, inputElement, errorInputClass) => {
   inputElement.classList.remove(errorInputClass);
 
   inputErrorElement.textContent = '';
-  inputErrorElement.classList.remove('form__input-error_type_visible');
+  inputErrorElement.classList.remove(errorElementClass);
 };
 
 // проверяем есть ли невалидные поля input
@@ -66,7 +71,12 @@ const checkInputValidity = (formElement, inputElement, objectProperties) => {
       objectProperties.inputErrorElementClass
     );
   } else {
-    hideInputError(formElement, inputElement, objectProperties.inputErrorClass);
+    hideInputError(
+      formElement,
+      inputElement,
+      objectProperties.inputErrorClass,
+      objectProperties.inputErrorElementClass
+    );
   }
 };
 
@@ -86,8 +96,6 @@ const setEventListener = (formElement, objectProperties) => {
       checkInputValidity(formElement, inputElement, objectProperties);
       toggleButtonState(formInputElements, buttonElement, objectProperties);
     });
-
-    // checkInputValidity(formElement, inputElement, objectProperties);
   });
 };
 

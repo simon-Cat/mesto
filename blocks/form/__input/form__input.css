@@ -11,7 +11,6 @@
   display: block;
   max-width: 238px;
   width: 100%;
-  margin-bottom: 30px;
   transition: border-color 0.3s linear;
 }
 
@@ -19,16 +18,8 @@
   color: #c4c4c4;
 }
 
-.form__input + .form__input {
-  margin-bottom: 45px;
-}
-
 @media screen and (min-width: 1024px) {
   .form__input {
     max-width: 358px;
-  }
-
-  .form__input + .form__input {
-    margin-bottom: 48px;
   }
 }

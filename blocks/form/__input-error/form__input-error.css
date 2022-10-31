@@ -7,4 +7,17 @@
   color: #ff0000;
   visibility: hidden;
   transition: visibility 0.4s ease;
+  width: 100%;
+  max-width: 238px;
+  min-height: 30px;
+}
+
+.form__input-error:last-of-type {
+  margin-bottom: 18px;
+}
+
+@media screen and (min-width: 1024px) {
+  .form__input-error {
+    max-width: 358px;
+  }
 }
