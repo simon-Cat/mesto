@@ -8,16 +8,6 @@ window.addEventListener('load', () => {
   });
 });
 
-// 6 карточек при загрузке страницы
-const initialCards = [
-  { name: 'Абхазия', link: './images/abkhazia.jpg' },
-  { name: 'Краснодар', link: './images/krasnodar.jpg' },
-  { name: 'Москва', link: './images/moscow.jpg' },
-  { name: 'Новороссийск', link: './images/novorossysk.jpg' },
-  { name: 'Сочи', link: './images/sohi.jpg' },
-  { name: 'Санкт-Петербург', link: './images/st-peterburg.jpg' },
-];
-
 // блок places__list
 const placesList = document.querySelector('.places__list');
 
@@ -40,13 +30,13 @@ const profileAddButton = profile.querySelector('.button_type_add');
 const popupBlockEdit = document.querySelector('.popup_type_edit');
 
 // форма блока popup для редактирование данных профиля
-const editPopupForm = document.querySelector('.popup_type_edit .popup__form');
+const popupFormEdit = document.querySelector('.popup_type_edit .popup__form');
 
 // блок popup для добавления новых фотографий
 const popupBlockAdd = document.querySelector('.popup_type_add');
 
 // форма блока popup для добавления новых фотографий
-const addPopupForm = document.querySelector('.popup_type_add .popup__form');
+const popupFormAdd = document.querySelector('.popup_type_add .popup__form');
 
 // блок popup для отображения изображения места в полный размер
 const popupBlockFullImage = document.querySelector('.popup_type_full-image');
@@ -76,10 +66,13 @@ const inputPlaceSource = document.querySelector(
   '.form__input_type_place-source'
 );
 
+// код клавиши ESC
+const keyCodeESC = 27;
+
 // отобразить 6 начальных карточек "мест"
 function addInitialPlaceCards(evt) {
   initialCards.forEach((item) => {
-    addNewPlaceCard(evt, item);
+    addplaceNewCard(evt, item);
   });
 }
 
@@ -105,8 +98,8 @@ function setInitialProfileData() {
   inputProfilePost.value = profileDescription.textContent;
 
   // проверка полей формы "Редактировать профиль"
-  checkInputValidity(editPopupForm, inputProfileName, config);
-  checkInputValidity(editPopupForm, inputProfilePost, config);
+  checkInputValidity(popupFormEdit, inputProfileName, config);
+  checkInputValidity(popupFormEdit, inputProfilePost, config);
 
   openPopup(popupBlockEdit);
 }
@@ -126,11 +119,11 @@ function saveProfileChanges(evt) {
 }
 
 // добавление новой карочки "места"
-function addNewPlaceCard(evt, initialPlace) {
-  const newPlaceCard = createPlaceCard(initialPlace);
+function addplaceNewCard(evt, initialPlace) {
+  const placeNewCard = createPlaceCard(initialPlace);
 
   // Добавление элемента списка li с блоком place в блок places__list
-  placesList.prepend(newPlaceCard);
+  placesList.prepend(placeNewCard);
 
   // если есть объект "evt", то закрываем popup через функцию
   if (evt) {
@@ -194,26 +187,26 @@ function createPlaceCard(initialPlace) {
   placeTitle.textContent = placeName;
 
   // кнопка "like" и обработчик события к ней
-  const likeButton = placeCard.querySelector('.button_type_like');
-  likeButton.addEventListener('click', like);
+  const buttonLike = placeCard.querySelector('.button_type_like');
+  buttonLike.addEventListener('click', like);
 
   // кнопка "remove" и обработчик события к ней
-  const removeButton = placeCard.querySelector('.button_type_remove');
-  removeButton.addEventListener('click', removePlaceCard);
+  const buttonRemove = placeCard.querySelector('.button_type_remove');
+  buttonRemove.addEventListener('click', removePlaceCard);
 
   return placeListItem;
 }
 
 // поставить/убрать "like"
 function like(evt) {
-  const likeButton = evt.target;
-  likeButton.classList.toggle('button_active');
+  const buttonLike = evt.target;
+  buttonLike.classList.toggle('button_active');
 }
 
 // удалить карточку "место"
 function removePlaceCard(evt) {
-  const removedPlaceCard = evt.target.closest('li');
-  removedPlaceCard.remove();
+  const placeRemovedCard = evt.target.closest('li');
+  placeRemovedCard.remove();
 }
 
 // удалить значения полей input
@@ -243,12 +236,12 @@ function removeKeyboardEvent() {
 
 // закрытие popup через клавишу ESC
 function closePopupWithEscapeKey(evt) {
-  if (evt.keyCode === 27) {
+  if (evt.keyCode === keyCodeESC) {
     removeKeyboardEvent();
 
-    const closedPopup = document.querySelector('.popup_opened');
+    const popupClosed = document.querySelector('.popup_opened');
 
-    closedPopup.classList.remove('popup_opened');
+    popupClosed.classList.remove('popup_opened');
   }
 }
 
@@ -266,7 +259,7 @@ popupCloseButtons.forEach((item) => {
 document.addEventListener('mousedown', closePopupWithOverlay);
 
 // вешаем события для форм: "сохранить изменения", "добавить новое место"
-editPopupForm.addEventListener('submit', saveProfileChanges);
-addPopupForm.addEventListener('submit', addNewPlaceCard);
+popupFormEdit.addEventListener('submit', saveProfileChanges);
+popupFormAdd.addEventListener('submit', addplaceNewCard);
 
 enableValidation(config);
