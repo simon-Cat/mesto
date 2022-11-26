@@ -1,4 +1,27 @@
+// Импорт классов Card и FormValidator
 import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
+
+// 6 карточек при загрузке страницы
+const initialCards = [
+  { name: 'Абхазия', link: './images/abkhazia.jpg' },
+  { name: 'Краснодар', link: './images/krasnodar.jpg' },
+  { name: 'Москва', link: './images/moscow.jpg' },
+  { name: 'Новороссийск', link: './images/novorossysk.jpg' },
+  { name: 'Сочи', link: './images/sohi.jpg' },
+  { name: 'Санкт-Петербург', link: './images/st-peterburg.jpg' },
+];
+
+// объект с наименованиями свойств
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.form__input',
+  inputErrorClass: 'form__input_type_error',
+  inputErrorElementSelector: '.form__input-error',
+  inputErrorElementClass: 'form__input-error_type_visible',
+  submitButtonSelector: '.button_type_submit',
+  inactiveButtonClass: 'button_disabled',
+};
 
 // Удаляем класс "popup_hidden" у всех блоков popup.
 // Сделано с целью скрыть исчезающий popup во время презагрузки страницы
@@ -100,8 +123,9 @@ function setInitialProfileData() {
   inputProfilePost.value = profileDescription.textContent;
 
   // проверка полей формы "Редактировать профиль"
-  checkInputValidity(popupFormEdit, inputProfileName, config);
-  checkInputValidity(popupFormEdit, inputProfilePost, config);
+  // Сделано с целью валидации полей формы profile
+  // при закрытии и без сохранения новых данных
+  formUserData.enableValidation();
 
   openPopup(popupBlockEdit);
 }
@@ -232,4 +256,8 @@ document.addEventListener('mousedown', closePopupWithOverlay);
 popupFormEdit.addEventListener('submit', saveProfileChanges);
 popupFormAdd.addEventListener('submit', addPlaceNewCard);
 
-enableValidation(config);
+const formUserData = new FormValidator(config, '.form_userData');
+formUserData.enableValidation();
+
+const formPlaceData = new FormValidator(config, '.form_placeData');
+formPlaceData.enableValidation();

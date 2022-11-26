@@ -25,6 +25,8 @@ class Card {
     // кнопка "remove" и обработчик события к ней
     const buttonRemove = this._element.querySelector('.button_type_remove');
     buttonRemove.addEventListener('click', this._remove);
+
+    // вешаем обработчики открытия и закрытия popup
   }
 
   // Обработчик при клике на кнопку "like"
@@ -37,6 +39,14 @@ class Card {
   _remove(evt) {
     const placeRemovedCard = evt.target.closest('li');
     placeRemovedCard.remove();
+  }
+
+  _openPopup(evt) {
+    // тут логика открытия popup
+  }
+
+  _closePopup(evt) {
+    // тут логика закрытия popup
   }
 
   // Получение полностью готовой карточки места
