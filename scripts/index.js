@@ -1,3 +1,5 @@
+import { Card } from './Card.js';
+
 // Удаляем класс "popup_hidden" у всех блоков popup.
 // Сделано с целью скрыть исчезающий popup во время презагрузки страницы
 window.addEventListener('load', () => {
@@ -72,7 +74,7 @@ const keyCodeESC = 27;
 // отобразить 6 начальных карточек "мест"
 function addInitialPlaceCards(evt) {
   initialCards.forEach((item) => {
-    addplaceNewCard(evt, item);
+    addPlaceNewCard(evt, item);
   });
 }
 
@@ -119,7 +121,7 @@ function saveProfileChanges(evt) {
 }
 
 // добавление новой карочки "места"
-function addplaceNewCard(evt, initialPlace) {
+function addPlaceNewCard(evt, initialPlace) {
   const placeNewCard = createPlaceCard(initialPlace);
 
   // Добавление элемента списка li с блоком place в блок places__list
@@ -141,34 +143,29 @@ function createPlaceCard(initialPlace) {
   let placeName = null;
   let placeSource = null;
 
+  let placeNewCard;
+
   // если передано "место" из массива "initialCards",
   // то в переменные сохраняем значения свойств "name" и "link",
   // иначе сохраняем значения из полей input
+  // создаем экземпляры класса Card
   if (initialPlace) {
     placeName = initialPlace.name;
     placeSource = initialPlace.link;
+
+    placeNewCard = new Card(initialPlace, '#place').generateCard();
   } else {
     placeName = inputPlaceName.value;
     placeSource = inputPlaceSource.value;
+
+    placeNewCard = new Card(
+      { name: placeName, link: placeSource },
+      '#place'
+    ).generateCard();
   }
 
-  // клон template блока place
-  const placeTemplate = document
-    .querySelector('#place')
-    .content.cloneNode(true);
-
-  // элемент списка li
-  const placeListItem = placeTemplate.querySelector('li');
-
-  // блок place
-  const placeCard = placeTemplate.querySelector('.place');
-
   // элемент img блока place
-  const placeImage = placeCard.querySelector('.place__image');
-
-  // атрибуты src и alt для элемента place__image
-  placeImage.setAttribute('alt', placeName);
-  placeImage.setAttribute('src', placeSource);
+  const placeImage = placeNewCard.querySelector('.place__image');
 
   // установить атрибуты для изображения и текст для подписи к изображению
   // открыть popup с увеличеным изображением
@@ -179,34 +176,7 @@ function createPlaceCard(initialPlace) {
 
     openPopup(popupBlockFullImage);
   });
-
-  // элемент title блока place
-  const placeTitle = placeCard.querySelector('.place__title');
-
-  // текст для элемента place__title
-  placeTitle.textContent = placeName;
-
-  // кнопка "like" и обработчик события к ней
-  const buttonLike = placeCard.querySelector('.button_type_like');
-  buttonLike.addEventListener('click', like);
-
-  // кнопка "remove" и обработчик события к ней
-  const buttonRemove = placeCard.querySelector('.button_type_remove');
-  buttonRemove.addEventListener('click', removePlaceCard);
-
-  return placeListItem;
-}
-
-// поставить/убрать "like"
-function like(evt) {
-  const buttonLike = evt.target;
-  buttonLike.classList.toggle('button_active');
-}
-
-// удалить карточку "место"
-function removePlaceCard(evt) {
-  const placeRemovedCard = evt.target.closest('li');
-  placeRemovedCard.remove();
+  return placeNewCard;
 }
 
 // удалить значения полей input
@@ -260,6 +230,6 @@ document.addEventListener('mousedown', closePopupWithOverlay);
 
 // вешаем события для форм: "сохранить изменения", "добавить новое место"
 popupFormEdit.addEventListener('submit', saveProfileChanges);
-popupFormAdd.addEventListener('submit', addplaceNewCard);
+popupFormAdd.addEventListener('submit', addPlaceNewCard);
 
 enableValidation(config);
