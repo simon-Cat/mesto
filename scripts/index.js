@@ -2,27 +2,6 @@
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 
-// 6 карточек при загрузке страницы
-const initialCards = [
-  { name: 'Абхазия', link: './images/abkhazia.jpg' },
-  { name: 'Краснодар', link: './images/krasnodar.jpg' },
-  { name: 'Москва', link: './images/moscow.jpg' },
-  { name: 'Новороссийск', link: './images/novorossysk.jpg' },
-  { name: 'Сочи', link: './images/sohi.jpg' },
-  { name: 'Санкт-Петербург', link: './images/st-peterburg.jpg' },
-];
-
-// объект с наименованиями свойств
-const config = {
-  formSelector: '.popup__form',
-  inputSelector: '.form__input',
-  inputErrorClass: 'form__input_type_error',
-  inputErrorElementSelector: '.form__input-error',
-  inputErrorElementClass: 'form__input-error_type_visible',
-  submitButtonSelector: '.button_type_submit',
-  inactiveButtonClass: 'button_disabled',
-};
-
 // Удаляем класс "popup_hidden" у всех блоков popup.
 // Сделано с целью скрыть исчезающий popup во время презагрузки страницы
 window.addEventListener('load', () => {
@@ -32,6 +11,14 @@ window.addEventListener('load', () => {
     popup.classList.remove('popup_hidden');
   });
 });
+
+// валидация формы профиля
+const formUserData = new FormValidator(config, '.form_userData');
+formUserData.enableValidation();
+
+// валидация формы создания карточек
+const formPlaceData = new FormValidator(config, '.form_placeData');
+formPlaceData.enableValidation();
 
 // блок places__list
 const placesList = document.querySelector('.places__list');
@@ -48,8 +35,8 @@ const profileDescription = profile.querySelector('.profile__description');
 // элемент кнопки "редактировать" в блоке profile
 const profileEditButton = profile.querySelector('.button_type_edit');
 
-// элемент кнопки "Добавить изображение" в блоке profile
-const profileAddButton = profile.querySelector('.button_type_add');
+// элемент кнопки "Добавить изображение" в блоке place
+const placeAddButton = profile.querySelector('.button_type_add');
 
 // блок popup для редактирование данных профиля
 const popupBlockEdit = document.querySelector('.popup_type_edit');
@@ -62,15 +49,6 @@ const popupBlockAdd = document.querySelector('.popup_type_add');
 
 // форма блока popup для добавления новых фотографий
 const popupFormAdd = document.querySelector('.popup_type_add .popup__form');
-
-// блок popup для отображения изображения места в полный размер
-const popupBlockFullImage = document.querySelector('.popup_type_full-image');
-
-// полное изображение блока popup
-const popupBlockFullImageSource = document.querySelector('.popup__full-image');
-
-// подпись для полного изображения
-const popupBlockFullImageText = document.querySelector('.popup__text');
 
 // элемент кнопки "закрыть" в блоке popup
 const popupCloseButtons = Array.from(
@@ -122,10 +100,10 @@ function setInitialProfileData() {
   inputProfileName.value = profileTitle.textContent;
   inputProfilePost.value = profileDescription.textContent;
 
-  // проверка полей формы "Редактировать профиль"
-  // Сделано с целью валидации полей формы profile
-  // при закрытии и без сохранения новых данных
-  formUserData.enableValidation();
+  // проверяем форму при открытии popup профиля
+  formUserData.checkInputValidity(inputProfileName);
+  formUserData.checkInputValidity(inputProfilePost);
+  formUserData.toggleButtonState();
 
   openPopup(popupBlockEdit);
 }
@@ -141,12 +119,13 @@ function saveProfileChanges(evt) {
   closePopup(evt);
 
   // очистить поля input
-  clearInputFields(inputProfileName, inputProfilePost);
+  clearForm(popupFormEdit);
 }
 
 // добавление новой карочки "места"
 function addPlaceNewCard(evt, initialPlace) {
   const placeNewCard = createPlaceCard(initialPlace);
+  formPlaceData.toggleButtonState();
 
   // Добавление элемента списка li с блоком place в блок places__list
   placesList.prepend(placeNewCard);
@@ -158,55 +137,35 @@ function addPlaceNewCard(evt, initialPlace) {
   }
 
   // очистить поля input
-  clearInputFields(inputPlaceName, inputPlaceSource);
+  clearForm(popupFormAdd);
 }
 
 function createPlaceCard(initialPlace) {
-  // переменные для хранения названия места и
-  // ссылки на его изображение
-  let placeName = null;
-  let placeSource = null;
-
+  // переменная для хранения новой карточки
   let placeNewCard;
 
-  // если передано "место" из массива "initialCards",
-  // то в переменные сохраняем значения свойств "name" и "link",
-  // иначе сохраняем значения из полей input
-  // создаем экземпляры класса Card
+  // если передан объект данных "места" из массива "initialCards",
+  // то пр создании экземпляра используем его
   if (initialPlace) {
-    placeName = initialPlace.name;
-    placeSource = initialPlace.link;
-
-    placeNewCard = new Card(initialPlace, '#place').generateCard();
+    placeNewCard = new Card(initialPlace, '#place', openPopup).generateCard();
   } else {
-    placeName = inputPlaceName.value;
-    placeSource = inputPlaceSource.value;
+    // иначе получаем значения из полей input и при создании
+    // экземпляра перелаем объект данных
+    const placeName = inputPlaceName.value;
+    const placeSource = inputPlaceSource.value;
 
     placeNewCard = new Card(
       { name: placeName, link: placeSource },
-      '#place'
+      '#place',
+      openPopup
     ).generateCard();
   }
-
-  // элемент img блока place
-  const placeImage = placeNewCard.querySelector('.place__image');
-
-  // установить атрибуты для изображения и текст для подписи к изображению
-  // открыть popup с увеличеным изображением
-  placeImage.addEventListener('click', () => {
-    popupBlockFullImageSource.setAttribute('src', placeSource);
-    popupBlockFullImageSource.setAttribute('alt', placeName);
-    popupBlockFullImageText.textContent = placeName;
-
-    openPopup(popupBlockFullImage);
-  });
   return placeNewCard;
 }
 
-// удалить значения полей input
-function clearInputFields(inputField_1, inputField_2) {
-  inputField_1.value = null;
-  inputField_2.value = null;
+// очистить форму
+function clearForm(form) {
+  form.reset();
 }
 
 // закрытие popup через оверлей
@@ -244,7 +203,11 @@ addInitialPlaceCards();
 
 // вешаем события для кнопок: "редактировать", "добавить", "закрыть"
 profileEditButton.addEventListener('click', setInitialProfileData);
-profileAddButton.addEventListener('click', () => openPopup(popupBlockAdd));
+placeAddButton.addEventListener('click', () => {
+  // блокируем кнопку формы создания новых карточек
+  formPlaceData.toggleButtonState();
+  openPopup(popupBlockAdd);
+});
 popupCloseButtons.forEach((item) => {
   item.addEventListener('click', closePopup);
 });
@@ -255,9 +218,3 @@ document.addEventListener('mousedown', closePopupWithOverlay);
 // вешаем события для форм: "сохранить изменения", "добавить новое место"
 popupFormEdit.addEventListener('submit', saveProfileChanges);
 popupFormAdd.addEventListener('submit', addPlaceNewCard);
-
-const formUserData = new FormValidator(config, '.form_userData');
-formUserData.enableValidation();
-
-const formPlaceData = new FormValidator(config, '.form_placeData');
-formPlaceData.enableValidation();
