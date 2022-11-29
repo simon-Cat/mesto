@@ -23,7 +23,7 @@ class FormValidator {
   }
 
   // отобразить/скрыть ошибки у поля input, если оно невалидное
-  checkInputValidity(inputElement) {
+  _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement);
     } else {
@@ -68,10 +68,19 @@ class FormValidator {
     this._formInputElements.forEach((inputElement) => {
       // Проверка input при включении валидации
       inputElement.addEventListener('input', () => {
-        this.checkInputValidity(inputElement);
+        this._checkInputValidity(inputElement);
         this.toggleButtonState();
       });
     });
+  }
+
+  // сбрасываем последствия валидации формы
+  resetValidation() {
+    this._formInputElements.forEach((inputElement) => {
+      this._checkInputValidity(inputElement);
+    });
+
+    this.toggleButtonState();
   }
 
   enableValidation() {

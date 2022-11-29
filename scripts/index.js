@@ -100,10 +100,8 @@ function setInitialProfileData() {
   inputProfileName.value = profileTitle.textContent;
   inputProfilePost.value = profileDescription.textContent;
 
-  // проверяем форму при открытии popup профиля
-  formUserData.checkInputValidity(inputProfileName);
-  formUserData.checkInputValidity(inputProfilePost);
-  formUserData.toggleButtonState();
+  // сбрасываем последствия валидации формы
+  formUserData.resetValidation();
 
   openPopup(popupBlockEdit);
 }
