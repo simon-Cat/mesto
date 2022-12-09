@@ -1,0 +1,23 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "A service that allows you to upload photos of beautiful places.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simon-Cat/mesto.git"
+  },
+  "keywords": [
+    "mesto",
+    "image"
+  ],
+  "author": "Simon-cat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/simon-Cat/mesto/issues"
+  },
+  "homepage": "https://github.com/simon-Cat/mesto#readme"
+}
