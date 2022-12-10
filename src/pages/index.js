@@ -1,6 +1,12 @@
 // Импорт классов Card и FormValidator
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
+import { Card } from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
+
+// Импорт констант
+import { config, initialCards } from '../utils/constants.js';
+
+// Импорт стилей
+import '../styles/index.css';
 
 // Удаляем класс "popup_hidden" у всех блоков popup.
 // Сделано с целью скрыть исчезающий popup во время презагрузки страницы
