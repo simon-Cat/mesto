@@ -1,5 +1,6 @@
 // Импорт классов Section, Card и FormValidator
 import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 import { Section } from '../components/Section.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
@@ -37,7 +38,7 @@ const popupAdd = new Popup('.popup_type_add');
 popupAdd.setEventListeners();
 
 // КЛАСС POPUP ДЛЯ ПОЛНОГО ИЗОБРАЖЕНИЯ
-const popupFullImage = new Popup('.popup_type_full-image');
+const popupFullImage = new PopupWithImage('.popup_type_full-image');
 popupFullImage.setEventListeners();
 
 // блок profile
@@ -172,7 +173,7 @@ function createPlaceCard(initialPlace) {
       { name: placeName, link: placeSource },
       '#place',
       // openPopup
-      popupAdd.open
+      popupFullImage.open.bind(popupFullImage)
     ).generateCard();
   }
   return placeNewCard;

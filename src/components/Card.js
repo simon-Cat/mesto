@@ -30,16 +30,8 @@ class Card {
     // открытие изображения в полном масштабе
     // при нажатии на изображение карточки
     this._imageCard.addEventListener('click', () => {
-      const popupBlockFullImageSource =
-        document.querySelector('.popup__full-image');
-      popupBlockFullImageSource.src = this._imageLink;
-      popupBlockFullImageSource.alt = this._title;
-
-      const popupBlockFullImageText = document.querySelector('.popup__text');
-      popupBlockFullImageText.textContent = this._title;
-
       // открыть изображение в полном масштабе
-      this._externalHandler();
+      this._externalHandler(this._imageLink, this._title);
     });
   }
 
