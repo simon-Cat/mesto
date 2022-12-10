@@ -1,4 +1,5 @@
 // Импорт классов Section, Card и FormValidator
+import Popup from '../components/Popup.js';
 import { Section } from '../components/Section.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
@@ -27,8 +28,17 @@ formUserData.enableValidation();
 const formPlaceData = new FormValidator(config, '.form_placeData');
 formPlaceData.enableValidation();
 
-// блок places__list
-// const placesList = document.querySelector('.places__list');
+// КЛАСС POPUP ДЛЯ ПРОФИЛЯ
+const popupEdit = new Popup('.popup_type_edit');
+popupEdit.setEventListeners();
+
+// КЛАСС POPUP ДЛЯ ДОБАВЛЕНИЯ КАРТОЧКИ
+const popupAdd = new Popup('.popup_type_add');
+popupAdd.setEventListeners();
+
+// КЛАСС POPUP ДЛЯ ПОЛНОГО ИЗОБРАЖЕНИЯ
+const popupFullImage = new Popup('.popup_type_full-image');
+popupFullImage.setEventListeners();
 
 // блок profile
 const profile = document.querySelector('.profile');
@@ -76,16 +86,13 @@ const inputPlaceSource = document.querySelector(
   '.form__input_type_place-source'
 );
 
-// код клавиши ESC
-const keyCodeESC = 27;
-
 // отобразить 6 начальных карточек "мест"
 function addInitialPlaceCards(evt) {
   initialCards.forEach((item) => {
     addPlaceNewCard(evt, item);
   });
 }
-
+// ЭКЗЕМПЛЯР КЛАССА SECTION
 const cardList = new Section(
   {
     items: initialCards,
@@ -93,23 +100,8 @@ const cardList = new Section(
   },
   '.places__list'
 );
-
+// ОТРИСОВАТЬ ВСЕ КАРТОЧКИ
 cardList.renderElements();
-
-// открыть popup
-function openPopup(popupBlock) {
-  setKeyboardEvent();
-
-  popupBlock.classList.add('popup_opened');
-}
-
-// закрыть popup
-function closePopup(evt) {
-  removeKeyboardEvent();
-
-  const popupClosedBlock = evt.target.closest('.popup');
-  popupClosedBlock.classList.remove('popup_opened');
-}
 
 // установить данные в полях input в блоке profile
 // открыть popup
@@ -122,7 +114,7 @@ function setInitialProfileData() {
   formUserData.checkInputValidity(inputProfilePost);
   formUserData.toggleButtonState();
 
-  openPopup(popupBlockEdit);
+  popupEdit.open();
 }
 
 // сохранить изменения профиля
@@ -133,7 +125,7 @@ function saveProfileChanges(evt) {
   profileDescription.textContent = inputProfilePost.value;
 
   // закрыть popup
-  closePopup(evt);
+  popupEdit.close();
 
   // очистить поля input
   clearForm(popupFormEdit);
@@ -146,7 +138,6 @@ function addPlaceNewCard(initialPlace) {
   formPlaceData.toggleButtonState();
 
   // Добавление элемента списка li с блоком place в блок places__list
-  // placesList.prepend(placeNewCard);
   cardList.addItem(placeNewCard);
 
   // если есть объект "evt", то закрываем popup через функцию
@@ -166,7 +157,11 @@ function createPlaceCard(initialPlace) {
   // если передан объект данных "места" из массива "initialCards",
   // то пр создании экземпляра используем его
   if (initialPlace) {
-    placeNewCard = new Card(initialPlace, '#place', openPopup).generateCard();
+    placeNewCard = new Card(
+      initialPlace,
+      '#place',
+      popupFullImage.open.bind(popupFullImage)
+    ).generateCard();
   } else {
     // иначе получаем значения из полей input и при создании
     // экземпляра перелаем объект данных
@@ -176,7 +171,8 @@ function createPlaceCard(initialPlace) {
     placeNewCard = new Card(
       { name: placeName, link: placeSource },
       '#place',
-      openPopup
+      // openPopup
+      popupAdd.open
     ).generateCard();
   }
   return placeNewCard;
@@ -188,34 +184,34 @@ function clearForm(form) {
 }
 
 // закрытие popup через оверлей
-function closePopupWithOverlay(evt) {
-  if (evt.target.classList.contains('popup__container')) {
-    closePopup(evt);
-  }
+// function closePopupWithOverlay(evt) {
+//   if (evt.target.classList.contains('popup__container')) {
+//     closePopup(evt);
+//   }
 
-  return;
-}
+//   return;
+// }
 
 // добавить слушатель на нажатие кнопки ESC
-function setKeyboardEvent() {
-  document.addEventListener('keydown', closePopupWithEscapeKey);
-}
+// function setKeyboardEvent() {
+//   document.addEventListener('keydown', closePopupWithEscapeKey);
+// }
 
 // удалить слушатель на нажатие кнопки ESC
-function removeKeyboardEvent() {
-  document.removeEventListener('keydown', closePopupWithEscapeKey);
-}
+// function removeKeyboardEvent() {
+//   document.removeEventListener('keydown', closePopupWithEscapeKey);
+// }
 
 // закрытие popup через клавишу ESC
-function closePopupWithEscapeKey(evt) {
-  if (evt.keyCode === keyCodeESC) {
-    removeKeyboardEvent();
+// function closePopupWithEscapeKey(evt) {
+//   if (evt.keyCode === keyCodeESC) {
+//     removeKeyboardEvent();
 
-    const popupClosed = document.querySelector('.popup_opened');
+//     const popupClosed = document.querySelector('.popup_opened');
 
-    popupClosed.classList.remove('popup_opened');
-  }
-}
+//     popupClosed.classList.remove('popup_opened');
+//   }
+// }
 
 // добавляем 6 первых карточек
 // addInitialPlaceCards();
@@ -225,14 +221,15 @@ profileEditButton.addEventListener('click', setInitialProfileData);
 placeAddButton.addEventListener('click', () => {
   // блокируем кнопку формы создания новых карточек
   formPlaceData.toggleButtonState();
-  openPopup(popupBlockAdd);
+  // openPopup(popupBlockAdd);
+  popupAdd.open();
 });
-popupCloseButtons.forEach((item) => {
-  item.addEventListener('click', closePopup);
-});
+// popupCloseButtons.forEach((item) => {
+//   item.addEventListener('click', closePopup);
+// });
 
 // закрытие popup через оверлей
-document.addEventListener('mousedown', closePopupWithOverlay);
+// document.addEventListener('mousedown', closePopupWithOverlay);
 
 // вешаем события для форм: "сохранить изменения", "добавить новое место"
 popupFormEdit.addEventListener('submit', saveProfileChanges);

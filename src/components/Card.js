@@ -22,10 +22,10 @@ class Card {
   // и открытия изображения в полном масштабе
   _setEventListeners() {
     // кнопка "like" и обработчик события к ней
-    this._buttonLike.addEventListener('click', () => this._like());
+    this._buttonLike.addEventListener('click', this._like.bind(this));
 
     // кнопка "remove" и обработчик события к ней
-    this._buttonRemove.addEventListener('click', () => this._remove());
+    this._buttonRemove.addEventListener('click', this._remove.bind(this));
 
     // открытие изображения в полном масштабе
     // при нажатии на изображение карточки
@@ -39,7 +39,7 @@ class Card {
       popupBlockFullImageText.textContent = this._title;
 
       // открыть изображение в полном масштабе
-      this._openFullImage();
+      this._externalHandler();
     });
   }
 
@@ -52,14 +52,6 @@ class Card {
   _remove() {
     this._element.remove();
     this._element = null;
-  }
-
-  // открыть полномасштабное изображение карточки
-  _openFullImage() {
-    const popupBlockFullImage = document.querySelector(
-      '.popup_type_full-image'
-    );
-    this._externalHandler(popupBlockFullImage);
   }
 
   // Получение полностью готовой карточки места
