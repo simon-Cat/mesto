@@ -1,4 +1,5 @@
-// Импорт классов Card и FormValidator
+// Импорт классов Section, Card и FormValidator
+import { Section } from '../components/Section.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 
@@ -27,7 +28,7 @@ const formPlaceData = new FormValidator(config, '.form_placeData');
 formPlaceData.enableValidation();
 
 // блок places__list
-const placesList = document.querySelector('.places__list');
+// const placesList = document.querySelector('.places__list');
 
 // блок profile
 const profile = document.querySelector('.profile');
@@ -85,6 +86,16 @@ function addInitialPlaceCards(evt) {
   });
 }
 
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: addPlaceNewCard,
+  },
+  '.places__list'
+);
+
+cardList.renderElements();
+
 // открыть popup
 function openPopup(popupBlock) {
   setKeyboardEvent();
@@ -129,18 +140,20 @@ function saveProfileChanges(evt) {
 }
 
 // добавление новой карочки "места"
-function addPlaceNewCard(evt, initialPlace) {
+// убрал первый аргумент evt
+function addPlaceNewCard(initialPlace) {
   const placeNewCard = createPlaceCard(initialPlace);
   formPlaceData.toggleButtonState();
 
   // Добавление элемента списка li с блоком place в блок places__list
-  placesList.prepend(placeNewCard);
+  // placesList.prepend(placeNewCard);
+  cardList.addItem(placeNewCard);
 
   // если есть объект "evt", то закрываем popup через функцию
-  if (evt) {
-    evt.preventDefault();
-    closePopup(evt);
-  }
+  // if (evt) {
+  //   evt.preventDefault();
+  //   closePopup(evt);
+  // }
 
   // очистить поля input
   clearForm(popupFormAdd);
@@ -205,7 +218,7 @@ function closePopupWithEscapeKey(evt) {
 }
 
 // добавляем 6 первых карточек
-addInitialPlaceCards();
+// addInitialPlaceCards();
 
 // вешаем события для кнопок: "редактировать", "добавить", "закрыть"
 profileEditButton.addEventListener('click', setInitialProfileData);

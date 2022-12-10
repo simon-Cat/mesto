@@ -18,6 +18,8 @@ module.exports = {
     publicPath: '',
   },
   mode: 'development',
+  // devtool
+  devtool: 'eval-source-map',
   devServer: {
     static: path.resolve(__dirname, './dist'),
     compress: true,
