@@ -72,6 +72,16 @@ export default class FormValidator {
         this.toggleButtonState();
       });
     });
+
+    // слушатель события при очитске формы
+    this._formElement.addEventListener('reset', this._resetForm.bind(this));
+  }
+
+  // очистка формы
+  _resetForm() {
+    this._formInputElements.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
   }
 
   enableValidation() {

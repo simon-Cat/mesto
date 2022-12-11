@@ -128,6 +128,5 @@ profileEditButton.addEventListener('click', setInitialProfileData);
 placeAddButton.addEventListener('click', () => {
   // блокируем кнопку формы создания новых карточек
   formPlaceData.toggleButtonState();
-  // openPopup(popupBlockAdd);
   popupAdd.open();
 });
