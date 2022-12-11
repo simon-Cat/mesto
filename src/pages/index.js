@@ -1,7 +1,8 @@
 // Импорт классов Section, Card и FormValidator
-import Popup from '../components/Popup.js';
+// import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 import { Section } from '../components/Section.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
@@ -42,6 +43,12 @@ popupAdd.setEventListeners();
 const popupFullImage = new PopupWithImage('.popup_type_full-image');
 popupFullImage.setEventListeners();
 
+// КЛАСС USERINFO
+const userInfo = new UserInfo({
+  userNameSelector: '.profile__title',
+  userPostSelector: '.profile__description',
+});
+
 // блок profile
 const profile = document.querySelector('.profile');
 
@@ -80,8 +87,11 @@ cardList.renderElements();
 // установить данные в полях input в блоке profile
 // открыть popup
 function setInitialProfileData() {
-  inputProfileName.value = profileTitle.textContent;
-  inputProfilePost.value = profileDescription.textContent;
+  const { userName, userPost } = userInfo.getUserInfo();
+  // console.log(test);
+
+  inputProfileName.value = userName;
+  inputProfilePost.value = userPost;
 
   // проверяем форму при открытии popup профиля
   formUserData.checkInputValidity(inputProfileName);
@@ -93,8 +103,9 @@ function setInitialProfileData() {
 
 // сохранить изменения профиля
 function saveProfileChanges({ userName, userPost }) {
-  profileTitle.textContent = userName;
-  profileDescription.textContent = userPost;
+  userInfo.setUserInfo(userName, userPost);
+  // profileTitle.textContent = userName;
+  // profileDescription.textContent = userPost;
 }
 
 // добавление новой карочки "места"
