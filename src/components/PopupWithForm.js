@@ -8,12 +8,11 @@ export default class PopupWithForm extends Popup {
     this._formInputList = Array.from(
       this._form.querySelectorAll('.form__input')
     );
-    console.log(this._handlerSubmit);
   }
   _getInputValues() {
     this._inputValues = {};
-    this._formInputList.forEach((element, index) => {
-      this._inputValues[`input_${index}`] = element.value;
+    this._formInputList.forEach((element) => {
+      this._inputValues[element.name] = element.value;
     });
   }
   setEventListeners() {
@@ -22,6 +21,11 @@ export default class PopupWithForm extends Popup {
       evt.preventDefault();
       this._getInputValues();
       this._handlerSubmit(this._inputValues);
+      this.close();
     });
+  }
+  close() {
+    super.close();
+    this._form.reset();
   }
 }

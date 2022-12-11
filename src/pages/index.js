@@ -31,21 +31,16 @@ const formPlaceData = new FormValidator(config, '.form_placeData');
 formPlaceData.enableValidation();
 
 // КЛАСС POPUP ДЛЯ ПРОФИЛЯ
-const popupEdit = new Popup('.popup_type_edit');
+const popupEdit = new PopupWithForm('.popup_type_edit', saveProfileChanges);
 popupEdit.setEventListeners();
 
 // КЛАСС POPUP ДЛЯ ДОБАВЛЕНИЯ КАРТОЧКИ
-const popupAdd = new Popup('.popup_type_add');
+const popupAdd = new PopupWithForm('.popup_type_add', addPlaceNewCard);
 popupAdd.setEventListeners();
 
 // КЛАСС POPUP ДЛЯ ПОЛНОГО ИЗОБРАЖЕНИЯ
 const popupFullImage = new PopupWithImage('.popup_type_full-image');
 popupFullImage.setEventListeners();
-
-// КЛАСС POPUP  С ФОРМОЙ
-const popupWithForm = new PopupWithForm('.popup_type_add', addPlaceNewCard);
-popupWithForm.setEventListeners();
-const popupWithForm2 = new PopupWithForm('.popup_type_edit', alert);
 
 // блок profile
 const profile = document.querySelector('.profile');
@@ -62,22 +57,8 @@ const profileEditButton = profile.querySelector('.button_type_edit');
 // элемент кнопки "Добавить изображение" в блоке place
 const placeAddButton = profile.querySelector('.button_type_add');
 
-// блок popup для редактирование данных профиля
-const popupBlockEdit = document.querySelector('.popup_type_edit');
-
 // форма блока popup для редактирование данных профиля
 const popupFormEdit = document.querySelector('.popup_type_edit .popup__form');
-
-// блок popup для добавления новых фотографий
-const popupBlockAdd = document.querySelector('.popup_type_add');
-
-// форма блока popup для добавления новых фотографий
-const popupFormAdd = document.querySelector('.popup_type_add .popup__form');
-
-// элемент кнопки "закрыть" в блоке popup
-const popupCloseButtons = Array.from(
-  document.querySelectorAll('.button_type_close')
-);
 
 // input с именем
 const inputProfileName = document.querySelector('.form__input_type_name');
@@ -85,20 +66,6 @@ const inputProfileName = document.querySelector('.form__input_type_name');
 // input с должностью
 const inputProfilePost = document.querySelector('.form__input_type_post');
 
-// input с "названием места"
-const inputPlaceName = document.querySelector('.form__input_type_place-name');
-
-// input "ссылка на изображение"
-const inputPlaceSource = document.querySelector(
-  '.form__input_type_place-source'
-);
-
-// отобразить 6 начальных карточек "мест"
-function addInitialPlaceCards(evt) {
-  initialCards.forEach((item) => {
-    addPlaceNewCard(evt, item);
-  });
-}
 // ЭКЗЕМПЛЯР КЛАССА SECTION
 const cardList = new Section(
   {
@@ -125,17 +92,9 @@ function setInitialProfileData() {
 }
 
 // сохранить изменения профиля
-function saveProfileChanges(evt) {
-  evt.preventDefault();
-
-  profileTitle.textContent = inputProfileName.value;
-  profileDescription.textContent = inputProfilePost.value;
-
-  // закрыть popup
-  popupEdit.close();
-
-  // очистить поля input
-  clearForm(popupFormEdit);
+function saveProfileChanges({ userName, userPost }) {
+  profileTitle.textContent = userName;
+  profileDescription.textContent = userPost;
 }
 
 // добавление новой карочки "места"
@@ -146,42 +105,15 @@ function addPlaceNewCard(initialPlace) {
 
   // Добавление элемента списка li с блоком place в блок places__list
   cardList.addItem(placeNewCard);
-
-  // если есть объект "evt", то закрываем popup через функцию
-  // if (evt) {
-  //   evt.preventDefault();
-  //   closePopup(evt);
-  // }
-
-  // очистить поля input
-  clearForm(popupFormAdd);
 }
 
 function createPlaceCard(initialPlace) {
   // переменная для хранения новой карточки
-  let placeNewCard;
-
-  // если передан объект данных "места" из массива "initialCards",
-  // то пр создании экземпляра используем его
-  if (initialPlace) {
-    placeNewCard = new Card(
-      initialPlace,
-      '#place',
-      popupFullImage.open.bind(popupFullImage)
-    ).generateCard();
-  } else {
-    // иначе получаем значения из полей input и при создании
-    // экземпляра перелаем объект данных
-    // const placeName = inputPlaceName.value;
-    // const placeSource = inputPlaceSource.value;
-
-    placeNewCard = new Card(
-      { name: placeName, link: placeSource },
-      '#place',
-      // openPopup
-      popupFullImage.open.bind(popupFullImage)
-    ).generateCard();
-  }
+  const placeNewCard = new Card(
+    initialPlace,
+    '#place',
+    popupFullImage.open.bind(popupFullImage)
+  ).generateCard();
   return placeNewCard;
 }
 
@@ -189,39 +121,6 @@ function createPlaceCard(initialPlace) {
 function clearForm(form) {
   form.reset();
 }
-
-// закрытие popup через оверлей
-// function closePopupWithOverlay(evt) {
-//   if (evt.target.classList.contains('popup__container')) {
-//     closePopup(evt);
-//   }
-
-//   return;
-// }
-
-// добавить слушатель на нажатие кнопки ESC
-// function setKeyboardEvent() {
-//   document.addEventListener('keydown', closePopupWithEscapeKey);
-// }
-
-// удалить слушатель на нажатие кнопки ESC
-// function removeKeyboardEvent() {
-//   document.removeEventListener('keydown', closePopupWithEscapeKey);
-// }
-
-// закрытие popup через клавишу ESC
-// function closePopupWithEscapeKey(evt) {
-//   if (evt.keyCode === keyCodeESC) {
-//     removeKeyboardEvent();
-
-//     const popupClosed = document.querySelector('.popup_opened');
-
-//     popupClosed.classList.remove('popup_opened');
-//   }
-// }
-
-// добавляем 6 первых карточек
-// addInitialPlaceCards();
 
 // вешаем события для кнопок: "редактировать", "добавить", "закрыть"
 profileEditButton.addEventListener('click', setInitialProfileData);
@@ -231,13 +130,7 @@ placeAddButton.addEventListener('click', () => {
   // openPopup(popupBlockAdd);
   popupAdd.open();
 });
-// popupCloseButtons.forEach((item) => {
-//   item.addEventListener('click', closePopup);
-// });
-
-// закрытие popup через оверлей
-// document.addEventListener('mousedown', closePopupWithOverlay);
 
 // вешаем события для форм: "сохранить изменения", "добавить новое место"
-popupFormEdit.addEventListener('submit', saveProfileChanges);
+// popupFormEdit.addEventListener('submit', saveProfileChanges);
 // popupFormAdd.addEventListener('submit', addPlaceNewCard);
