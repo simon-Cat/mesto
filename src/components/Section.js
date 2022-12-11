@@ -1,19 +1,19 @@
 export default class Section {
   constructor({ items, renderer }, containerSelector) {
-    this.__initArray = items;
-    this.__renderer = renderer;
-    this.__container = document.querySelector(containerSelector);
+    this._initArray = items;
+    this._renderer = renderer;
+    this._container = document.querySelector(containerSelector);
   }
 
   // отрисовать элементы
   renderElements() {
-    this.__initArray.forEach((item) => {
-      this.__renderer(item);
+    this._initArray.forEach((item) => {
+      this._renderer(item);
     });
   }
 
   // добавить элемент на страницу
   addItem(element) {
-    this.__container.prepend(element);
+    this._container.prepend(element);
   }
 }
