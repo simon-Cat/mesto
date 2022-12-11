@@ -4,16 +4,19 @@ export default class Popup {
     this._buttonClose = this._popup.querySelector('.button_type_close');
     this._keyCodeESC = 27;
   }
+
   // показать popup
   open() {
     this._popup.classList.add('popup_opened');
     this._setKeyboardEvent();
   }
+
   // скрыть popup
   close() {
     this._popup.classList.remove('popup_opened');
     this._removeKeyboardEvent();
   }
+
   // скрыть popup при нажатии esc
   _handleEscClose(evt) {
     if (evt.keyCode === this._keyCodeESC) {
@@ -21,14 +24,18 @@ export default class Popup {
       this.close();
     }
   }
+
   // слушатель на нажатие клавиши esc
   _setKeyboardEvent() {
     document.addEventListener('keydown', this._handleEscClose.bind(this));
   }
+
   // удаление слушателя клавиши esc
   _removeKeyboardEvent() {
     document.removeEventListener('keydown', this._handleEscClose.bind(this));
   }
+
+  // закрыть popup через overlay
   _closeWithOverlay(evt) {
     if (evt.target.classList.contains('popup__container')) {
       this.close();
@@ -36,6 +43,7 @@ export default class Popup {
 
     return;
   }
+
   // вешаем слушатели событий
   setEventListeners() {
     this._buttonClose.addEventListener('click', this.close.bind(this));

@@ -9,12 +9,17 @@ export default class PopupWithForm extends Popup {
       this._form.querySelectorAll('.form__input')
     );
   }
+
+  // получить данные всех инпутов
+  // поместить их в объект
   _getInputValues() {
     this._inputValues = {};
     this._formInputList.forEach((element) => {
       this._inputValues[element.name] = element.value;
     });
   }
+
+  // вешаем обработчики событий
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener('submit', (evt) => {
@@ -24,6 +29,8 @@ export default class PopupWithForm extends Popup {
       this.close();
     });
   }
+
+  // закрыть попап
   close() {
     super.close();
     this._form.reset();
