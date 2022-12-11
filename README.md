@@ -38,7 +38,7 @@
   - работа с DOM;
   - функции и циклы;
   - работа с различными видами событий ("submit", "click", "input", "mousedown").
-- **Node Package Manager (NPM)** ### Обновлено#64d36a
+- **Node Package Manager (NPM)** *Обновлено* :green_circle:
   - установка пакетов для проекта как зависимости для разработки и для продакшена (webpack, webpack-cli, webpack-server и т.д.);
 - **Сборщик проекта - Webpack**
   - настройка конфигурационного файла Webpack;
