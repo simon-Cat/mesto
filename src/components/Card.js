@@ -1,4 +1,4 @@
-class Card {
+export default class Card {
   constructor(data, templateSelector, handler) {
     this._imageLink = data.link;
     this._title = data.name;
@@ -22,24 +22,16 @@ class Card {
   // и открытия изображения в полном масштабе
   _setEventListeners() {
     // кнопка "like" и обработчик события к ней
-    this._buttonLike.addEventListener('click', () => this._like());
+    this._buttonLike.addEventListener('click', this._like.bind(this));
 
     // кнопка "remove" и обработчик события к ней
-    this._buttonRemove.addEventListener('click', () => this._remove());
+    this._buttonRemove.addEventListener('click', this._remove.bind(this));
 
     // открытие изображения в полном масштабе
     // при нажатии на изображение карточки
     this._imageCard.addEventListener('click', () => {
-      const popupBlockFullImageSource =
-        document.querySelector('.popup__full-image');
-      popupBlockFullImageSource.src = this._imageLink;
-      popupBlockFullImageSource.alt = this._title;
-
-      const popupBlockFullImageText = document.querySelector('.popup__text');
-      popupBlockFullImageText.textContent = this._title;
-
       // открыть изображение в полном масштабе
-      this._openFullImage();
+      this._externalHandler(this._imageLink, this._title);
     });
   }
 
@@ -52,14 +44,6 @@ class Card {
   _remove() {
     this._element.remove();
     this._element = null;
-  }
-
-  // открыть полномасштабное изображение карточки
-  _openFullImage() {
-    const popupBlockFullImage = document.querySelector(
-      '.popup_type_full-image'
-    );
-    this._externalHandler(popupBlockFullImage);
   }
 
   // Получение полностью готовой карточки места
@@ -90,5 +74,3 @@ class Card {
     return this._element;
   }
 }
-
-export { Card };
