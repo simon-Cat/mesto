@@ -1,6 +1,7 @@
 // Импорт классов Section, Card и FormValidator
 import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 import { Section } from '../components/Section.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
@@ -40,6 +41,11 @@ popupAdd.setEventListeners();
 // КЛАСС POPUP ДЛЯ ПОЛНОГО ИЗОБРАЖЕНИЯ
 const popupFullImage = new PopupWithImage('.popup_type_full-image');
 popupFullImage.setEventListeners();
+
+// КЛАСС POPUP  С ФОРМОЙ
+const popupWithForm = new PopupWithForm('.popup_type_add', addPlaceNewCard);
+popupWithForm.setEventListeners();
+const popupWithForm2 = new PopupWithForm('.popup_type_edit', alert);
 
 // блок profile
 const profile = document.querySelector('.profile');
@@ -166,8 +172,8 @@ function createPlaceCard(initialPlace) {
   } else {
     // иначе получаем значения из полей input и при создании
     // экземпляра перелаем объект данных
-    const placeName = inputPlaceName.value;
-    const placeSource = inputPlaceSource.value;
+    // const placeName = inputPlaceName.value;
+    // const placeSource = inputPlaceSource.value;
 
     placeNewCard = new Card(
       { name: placeName, link: placeSource },
@@ -234,4 +240,4 @@ placeAddButton.addEventListener('click', () => {
 
 // вешаем события для форм: "сохранить изменения", "добавить новое место"
 popupFormEdit.addEventListener('submit', saveProfileChanges);
-popupFormAdd.addEventListener('submit', addPlaceNewCard);
+// popupFormAdd.addEventListener('submit', addPlaceNewCard);
