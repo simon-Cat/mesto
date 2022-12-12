@@ -9,11 +9,9 @@ export default class Card {
 
   // Получение шаблона карточки места
   _getTemplate() {
-    const cardTemplate = document
-      .querySelector(this._templateSelector)
-      .content.cloneNode(true);
+    const cardTemplate = document.querySelector(this._templateSelector).content;
 
-    const card = cardTemplate.querySelector('li');
+    const card = cardTemplate.querySelector('li').cloneNode(true);
 
     return card;
   }

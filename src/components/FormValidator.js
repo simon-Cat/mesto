@@ -74,11 +74,11 @@ export default class FormValidator {
     });
 
     // слушатель события при очитске формы
-    this._formElement.addEventListener('reset', this._resetForm.bind(this));
+    this._formElement.addEventListener('reset', () => this.resetForm());
   }
 
-  // очистка формы
-  _resetForm() {
+  // сбрасываем последствия валидации формы
+  resetForm() {
     this._formInputElements.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });
