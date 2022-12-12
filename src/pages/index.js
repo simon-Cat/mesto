@@ -7,7 +7,14 @@ import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 
 // Импорт констант
-import { config, initialCards } from '../utils/constants.js';
+import {
+  config,
+  initialCards,
+  profileEditButton,
+  placeAddButton,
+  inputProfileName,
+  inputProfilePost,
+} from '../utils/constants.js';
 
 // Импорт стилей
 import './index.css';
@@ -20,21 +27,6 @@ window.addEventListener('load', () => {
     popup.classList.remove('popup_hidden');
   });
 });
-
-// блок profile
-const profile = document.querySelector('.profile');
-
-// элемент кнопки "редактировать" в блоке profile
-const profileEditButton = profile.querySelector('.button_type_edit');
-
-// элемент кнопки "Добавить изображение" в блоке place
-const placeAddButton = profile.querySelector('.button_type_add');
-
-// input с именем
-const inputProfileName = document.querySelector('.form__input_type_name');
-
-// input с должностью
-const inputProfilePost = document.querySelector('.form__input_type_post');
 
 // валидация формы профиля
 const formUserData = new FormValidator(config, '.form_userData');
@@ -86,9 +78,9 @@ function setInitialProfileData() {
   inputProfileName.value = userName;
   inputProfilePost.value = userPost;
 
-  // проверяем форму при открытии popup профиля
-  formUserData.checkInputValidity(inputProfileName);
-  formUserData.checkInputValidity(inputProfilePost);
+  // сбрасываем валидацию у формы при открытии попапа профиля
+  formUserData.resetForm();
+
   formUserData.toggleButtonState();
 
   // открыть popup

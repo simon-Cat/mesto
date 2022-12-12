@@ -3,6 +3,8 @@ export default class Popup {
     this._popup = document.querySelector(popupSelector);
     this._buttonClose = this._popup.querySelector('.button_type_close');
     this._keyCodeESC = 27;
+    // привязка метода к контексту
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   // показать popup
@@ -20,19 +22,21 @@ export default class Popup {
   // скрыть popup при нажатии esc
   _handleEscClose(evt) {
     if (evt.keyCode === this._keyCodeESC) {
-      this._removeKeyboardEvent();
       this.close();
     }
   }
 
   // слушатель на нажатие клавиши esc
   _setKeyboardEvent() {
-    document.addEventListener('keydown', this._handleEscClose.bind(this));
+    // document.addEventListener('keydown', this._handleEscClose.bind(this));
+
+    document.addEventListener('keydown', this._handleEscClose);
   }
 
   // удаление слушателя клавиши esc
   _removeKeyboardEvent() {
-    document.removeEventListener('keydown', this._handleEscClose.bind(this));
+    // document.removeEventListener('keydown', this._handleEscClose.bind(this));
+    document.removeEventListener('keydown', this._handleEscClose);
   }
 
   // закрыть popup через overlay
