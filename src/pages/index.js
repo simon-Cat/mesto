@@ -32,7 +32,7 @@ window.addEventListener('load', () => {
 
 // Api class
 const api = new Api({
-  baseURL: 'https://nomoreparties.co/v1/cohort-56/users/me',
+  baseURL: 'https://nomoreparties.co/v1/cohort-56/',
   headers: {
     authorization: 'bc0c38b3-5c70-4885-820d-3321ddcd1680',
   },
