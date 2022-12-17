@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto</title>
+<script defer src="main.js"></script><link href="main.css" rel="stylesheet"></head>
+
+<body class="page">
+  <header class="page__header header">
+    <a href="https://simon-cat.github.io/mesto/" class="header__link"><img src="bbe2a6eafac19c3d031c.svg"
+        alt="Логотип" class="header__logo logo"></a>
+  </header>
+  <main class="content">
+    <div class="content__profile profile">
+      <img src="74c3c0fb802dcfa83abb.jpg" alt="Автарака пользователя" class="profile__avatar">
+      <div class="profile__info">
+        <div class="profile__heading">
+          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <button type="button" class="button button_type_edit"></button>
+        </div>
+        <p class="profile__description">Исследователь океана</p>
+      </div>
+      <button type="button" class="button button_type_add"></button>
+    </div>
+    <section class="content__places places">
+      <ul class="places__list">
+      </ul>
+    </section>
+  </main>
+  <footer class="page__footer footer">
+    <p class="footer__text">&copy; 2022 Mesto Russia</p>
+  </footer>
+  <div class="popup popup_type_edit popup_hidden">
+    <div class="popup__container">
+      <form action="#" name="userData" class="form_userData popup__form form" novalidate>
+        <h2 class="form__title">Редактировать профиль</h2>
+        <input required minlength="2" maxlength="40" type="text" name="userName"
+          class="form__input form__input_type_name" id="name-input" placeholder="Имя">
+        <span class="form__input-error name-input-error"></span>
+        <input required minlength="2" maxlength="200" type="text" name="userPost"
+          class="form__input form__input_type_post" id="post-input" placeholder="О себе">
+        <span class="form__input-error post-input-error"></span>
+        <button type="submit" class="button button_type_submit">
+          <span class="button__text">Сохранить</span>
+        </button>
+        <button type="button" class="button button_type_close"></button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_type_add popup_hidden">
+    <div class="popup__container">
+      <form action="#" name="placeData" class="form_placeData popup__form form" novalidate>
+        <h2 class="form__title">Новое место</h2>
+        <input required minlength="2" maxlength="30" type="text" name="name" id="place-name-input"
+          placeholder="Название" class="form__input form__input_type_place-name">
+        <span class="form__input-error place-name-input-error"></span>
+        <input required type="url" name="link" id="place-source-input" placeholder="Ссылка на картинку"
+          class="form__input form__input_type_place-source">
+        <span class="form__input-error place-source-input-error"></span>
+        <button type="submit" class="button button_type_submit">
+          <span class="button__text">Создать</span>
+        </button>
+        <button type="button" class="button button_type_close"></button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_type_full-image popup_hidden">
+    <div class="popup__container">
+      <div class="popup__content">
+        <figure class="popup__figure">
+          <img src="#" alt="github" class="popup__full-image">
+          <figcaption>
+            <p class="popup__text"></p>
+          </figcaption>
+        </figure>
+        <button type="button" class="button button_type_close"></button>
+      </div>
+    </div>
+  </div>
+  <template id="place">
+    <li>
+      <article class="place">
+        <img src="#" alt="github" class="place__image">
+        <button class="button button_type_remove"></button>
+        <div class="place__heading-content">
+          <h2 class="place__title"></h2>
+          <button type="button" class="button button_type_like"></button>
+        </div>
+      </article>
+    </li>
+  </template>
+
+</body>
+
+</html>
