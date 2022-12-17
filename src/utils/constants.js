@@ -27,18 +27,11 @@ const initialCards = [
   { name: 'Санкт-Петербург', link: imgStPeterburg },
 ];
 
-// const elementsPfofile = {
-//   profile: document.querySelector('.profile'),
-//   profileEditButton: document.querySelector('.button_type_edit'),
-//   placeAddButton: document.querySelector('.button_type_add'),
-//   inputProfileName: document.querySelector('.form__input_type_name'),
-//   inputProfilePost: document.querySelector('.form__input_type_post'),
-// };
-
 const profileEditButton = document.querySelector('.button_type_edit'),
   placeAddButton = document.querySelector('.button_type_add'),
   inputProfileName = document.querySelector('.form__input_type_name'),
-  inputProfilePost = document.querySelector('.form__input_type_post');
+  inputProfilePost = document.querySelector('.form__input_type_post'),
+  avatarProfile = document.querySelector('.profile__avatar');
 
 export {
   config,
@@ -47,4 +40,5 @@ export {
   placeAddButton,
   inputProfileName,
   inputProfilePost,
+  avatarProfile,
 };

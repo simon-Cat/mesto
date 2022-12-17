@@ -5,6 +5,7 @@ import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
+import Api from '../utils/Api.js';
 
 // Импорт констант
 import {
@@ -14,6 +15,7 @@ import {
   placeAddButton,
   inputProfileName,
   inputProfilePost,
+  avatarProfile,
 } from '../utils/constants.js';
 
 // Импорт стилей
@@ -26,6 +28,14 @@ window.addEventListener('load', () => {
   popups.forEach((popup) => {
     popup.classList.remove('popup_hidden');
   });
+});
+
+// Api class
+const api = new Api({
+  baseURL: 'https://nomoreparties.co/v1/cohort-56/users/me',
+  headers: {
+    authorization: 'bc0c38b3-5c70-4885-820d-3321ddcd1680',
+  },
 });
 
 // валидация формы профиля
