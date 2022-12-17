@@ -32,9 +32,10 @@ window.addEventListener('load', () => {
 
 // Api class
 const api = new Api({
-  baseURL: 'https://nomoreparties.co/v1/cohort-56/',
+  baseURL: 'https://nomoreparties.co/v1/cohort-56',
   headers: {
     authorization: 'bc0c38b3-5c70-4885-820d-3321ddcd1680',
+    'Content-Type': 'application/json',
   },
 });
 
@@ -83,6 +84,11 @@ cardList.renderElements();
 function setInitialProfileData() {
   // получаем объект данных пользователя
   const { userName, userPost } = userInfo.getUserInfo();
+
+  // ПОРВЕРКА API
+  // api.getInitialCards();
+  // api.getUserInfo();
+  // api.updateProfileInfo();
 
   // отобразить данные в инпутах
   inputProfileName.value = userName;

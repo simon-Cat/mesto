@@ -7,7 +7,7 @@ class Api {
   }
 
   // проверить статуст запроса
-  checkResolveStatus(resolve) {
+  _checkResolveStatus(resolve) {
     if (resolve.ok) {
       return resolve.json();
     } else {
@@ -19,7 +19,7 @@ class Api {
   getUserInfo() {
     return fetch(`${this.url}/users/me`, { headers: this.headers })
       .then((res) => {
-        return this.checkResolveStatus(res);
+        return this._checkResolveStatus(res);
       })
       .then((info) => {
         console.log(info);
@@ -32,10 +32,26 @@ class Api {
   getInitialCards() {
     return fetch(`${this.url}/cards`, { headers: this.headers })
       .then((res) => {
-        return this.checkResolveStatus(res);
+        return this._checkResolveStatus(res);
       })
       .then((cards) => {
         console.log(cards);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  // обновить данные порфиля
+  updateProfileInfo() {
+    return fetch(`${this.url}/users/me`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({ name: 'Alex', about: 'Researcher' }),
+    })
+      .then((res) => {
+        return this._checkResolveStatus(res);
+      })
+      .then((profileInfoUpgrated) => {
+        console.log(profileInfoUpgrated);
       })
       .catch((err) => console.log(err));
   }
