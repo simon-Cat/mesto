@@ -3,7 +3,6 @@ class Api {
   constructor({ baseURL, headers }) {
     this.url = baseURL;
     this.headers = headers;
-    console.log('api', this.url, this.headers);
   }
 
   // проверить статуст запроса
@@ -16,16 +15,13 @@ class Api {
   }
 
   //  получить данные пользователя
-  getUserInfo() {
-    return fetch(`${this.url}/users/me`, { headers: this.headers })
-      .then((res) => {
-        return this._checkResolveStatus(res);
-      })
-      .then((info) => {
-        console.log(info);
-        // return info;
-      })
-      .catch((err) => console.log(err));
+  async getUserInfo() {
+    const response = await fetch(`${this.url}/users/me`, {
+      method: 'GET',
+      headers: this.headers,
+    });
+    const data = await response.json();
+    return data;
   }
 
   // получение начальных карточек мест

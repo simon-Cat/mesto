@@ -31,7 +31,12 @@ const profileEditButton = document.querySelector('.button_type_edit'),
   placeAddButton = document.querySelector('.button_type_add'),
   inputProfileName = document.querySelector('.form__input_type_name'),
   inputProfilePost = document.querySelector('.form__input_type_post'),
-  avatarProfile = document.querySelector('.profile__avatar');
+  // элемент аватара пользователя
+  profileAvatar = document.querySelector('.profile__avatar'),
+  // элемент с именем пользователя
+  profileName = document.querySelector('.profile__title'),
+  // элемент описание пользователя
+  profileAbout = document.querySelector('.profile__description');
 
 export {
   config,
@@ -40,5 +45,7 @@ export {
   placeAddButton,
   inputProfileName,
   inputProfilePost,
-  avatarProfile,
+  profileAvatar,
+  profileName,
+  profileAbout,
 };

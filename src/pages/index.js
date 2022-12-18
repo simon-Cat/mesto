@@ -15,7 +15,9 @@ import {
   placeAddButton,
   inputProfileName,
   inputProfilePost,
-  avatarProfile,
+  profileAvatar,
+  profileName,
+  profileAbout,
 } from '../utils/constants.js';
 
 // Импорт стилей
@@ -27,6 +29,13 @@ window.addEventListener('load', () => {
   const popups = Array.from(document.querySelectorAll('.popup'));
   popups.forEach((popup) => {
     popup.classList.remove('popup_hidden');
+  });
+
+  // загрузка данных пользователя
+  api.getUserInfo().then((res) => {
+    profileAvatar.src = res.avatar;
+    profileName.textContent = res.name;
+    profileAbout.textContent = res.about;
   });
 });
 
@@ -86,10 +95,10 @@ function setInitialProfileData() {
   const { userName, userPost } = userInfo.getUserInfo();
 
   // ПОРВЕРКА API
-  api.getInitialCards();
-  api.getUserInfo();
-  api.updateProfileInfo();
-  api.sendNewCard();
+  // api.getInitialCards();
+  // api.getUserInfo();
+  // api.updateProfileInfo();
+  // api.sendNewCard();
 
   // отобразить данные в инпутах
   inputProfileName.value = userName;
