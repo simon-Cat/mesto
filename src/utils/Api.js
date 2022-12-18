@@ -50,8 +50,24 @@ class Api {
       .then((res) => {
         return this._checkResolveStatus(res);
       })
-      .then((profileInfoUpgrated) => {
-        console.log(profileInfoUpgrated);
+      .then((profileUpgratedInfo) => {
+        console.log(profileUpgratedInfo);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  // добавить новую краточку
+  sendNewCard() {
+    return fetch(`${this.url}/cards`, {
+      method: 'POST',
+      headers: this.headers,
+      body: JSON.stringify({ name: 'Dubai', link: 'https://example.com' }),
+    })
+      .then((res) => {
+        return this._checkResolveStatus(res);
+      })
+      .then((newCardInfo) => {
+        console.log(newCardInfo);
       })
       .catch((err) => console.log(err));
   }

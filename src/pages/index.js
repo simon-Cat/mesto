@@ -86,9 +86,10 @@ function setInitialProfileData() {
   const { userName, userPost } = userInfo.getUserInfo();
 
   // ПОРВЕРКА API
-  // api.getInitialCards();
-  // api.getUserInfo();
-  // api.updateProfileInfo();
+  api.getInitialCards();
+  api.getUserInfo();
+  api.updateProfileInfo();
+  api.sendNewCard();
 
   // отобразить данные в инпутах
   inputProfileName.value = userName;
