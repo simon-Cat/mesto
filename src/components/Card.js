@@ -2,6 +2,7 @@ export default class Card {
   constructor(data, templateSelector, handler) {
     this._imageLink = data.link;
     this._title = data.name;
+    this._likeCount = data.likes.length;
     this._templateSelector = templateSelector;
     // обработчик для показа увеличенного изображения карточки места
     this._externalHandler = handler;
@@ -59,6 +60,10 @@ export default class Card {
     // текст для элемента place__title
     this._titleCard = this._element.querySelector('.place__title');
     this._titleCard.textContent = this._title;
+
+    // количество лайков
+    this._likeCountCard = this._element.querySelector('.place__like-count');
+    this._likeCountCard.textContent = this._likeCount;
 
     // элемент кнопки "like"
     this._buttonLike = this._element.querySelector('.button_type_like');

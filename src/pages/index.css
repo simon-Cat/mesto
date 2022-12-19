@@ -49,6 +49,8 @@
 @import url(../styles/blocks/place/__image/place__image.css);
 @import url(../styles/blocks/place/__heading-content/place__heading-content.css);
 @import url(../styles/blocks/place/__title/place__title.css);
+@import url(../styles/blocks/place/__like-panel/place__like-panel.css);
+@import url(../styles/blocks/place/__like-count/place__like-count.css);
 
 /* footer */
 @import url(../styles/blocks/footer/__text/footer__text.css);
