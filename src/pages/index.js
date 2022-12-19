@@ -30,13 +30,6 @@ window.addEventListener('load', () => {
   popups.forEach((popup) => {
     popup.classList.remove('popup_hidden');
   });
-
-  // загрузка данных пользователя
-  api.getUserInfo().then((res) => {
-    profileAvatar.src = res.avatar;
-    profileName.textContent = res.name;
-    profileAbout.textContent = res.about;
-  });
 });
 
 // Api class
@@ -46,6 +39,13 @@ const api = new Api({
     authorization: 'bc0c38b3-5c70-4885-820d-3321ddcd1680',
     'Content-Type': 'application/json',
   },
+});
+
+// загрузка данных пользователя
+api.getUserInfo().then((res) => {
+  profileAvatar.src = res.avatar;
+  profileName.textContent = res.name;
+  profileAbout.textContent = res.about;
 });
 
 // валидация формы профиля
@@ -78,14 +78,20 @@ const userInfo = new UserInfo({
 // класс Section для отрисвоки элементов
 const cardList = new Section(
   {
-    items: initialCards,
+    // items: initialCards,
+    // items: api.getInitialCards(),
     renderer: addPlaceNewCard,
   },
   '.places__list'
 );
 
 // отрисовать все карточки мест
-cardList.renderElements();
+api.getInitialCards().then((res) => {
+  cardList.renderElements(res);
+});
+
+// отрисовать все карточки мест
+// cardList.renderElements();
 
 // установить данные в полях input в блоке profile
 // осущетсвить валидацию полей формы

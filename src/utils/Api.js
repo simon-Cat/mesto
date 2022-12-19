@@ -6,35 +6,57 @@ class Api {
   }
 
   // проверить статуст запроса
-  _checkResolveStatus(resolve) {
-    if (resolve.ok) {
-      return resolve.json();
+  _checkResponseStatus(response) {
+    if (response.ok) {
+      return response.json();
     } else {
       return Promise.reject('Ошибка запроса!');
     }
   }
 
   //  получить данные пользователя
-  async getUserInfo() {
-    const response = await fetch(`${this.url}/users/me`, {
+  // async getUserInfo() {
+  //   const response = await fetch(`${this.url}/users/me`, {
+  //     method: 'GET',
+  //     headers: this.headers,
+  //   });
+  //   const data = await response.json();
+  //   return data;
+  // }
+
+  getUserInfo() {
+    return fetch(`${this.url}/users/me`, {
       method: 'GET',
       headers: this.headers,
+    }).then((res) => {
+      return this._checkResponseStatus(res);
     });
-    const data = await response.json();
-    return data;
+    // .then((data) => {
+    //   return data;
+    // });
   }
 
   // получение начальных карточек мест
   getInitialCards() {
     return fetch(`${this.url}/cards`, { headers: this.headers })
       .then((res) => {
-        return this._checkResolveStatus(res);
+        return this._checkResponseStatus(res);
       })
       .then((cards) => {
         console.log(cards);
+        return cards;
       })
       .catch((err) => console.log(err));
   }
+  // async getInitialCards() {
+  //   const response = await fetch(`${this.url}/cards`, {
+  //     method: 'GET',
+  //     headers: this.headers,
+  //   });
+  //   const data = await response.json();
+
+  //   return data;
+  // }
 
   // обновить данные порфиля
   updateProfileInfo() {
@@ -44,7 +66,7 @@ class Api {
       body: JSON.stringify({ name: 'Alex', about: 'Researcher' }),
     })
       .then((res) => {
-        return this._checkResolveStatus(res);
+        return this._checkResponseStatus(res);
       })
       .then((profileUpgratedInfo) => {
         console.log(profileUpgratedInfo);
@@ -60,7 +82,7 @@ class Api {
       body: JSON.stringify({ name: 'Dubai', link: 'https://example.com' }),
     })
       .then((res) => {
-        return this._checkResolveStatus(res);
+        return this._checkResponseStatus(res);
       })
       .then((newCardInfo) => {
         console.log(newCardInfo);
