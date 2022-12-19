@@ -6,9 +6,7 @@ export default class Section {
   //   this._container = document.querySelector(containerSelector);
   // }
 
-  constructor({ items, renderer }, containerSelector) {
-    console.log(items);
-    this._initArray = items;
+  constructor({ renderer }, containerSelector) {
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
   }

@@ -120,7 +120,10 @@ function setInitialProfileData() {
 }
 
 // сохранить изменения профиля
+// отправить новые данные профиля на сервер
+// отрисовать новые данные профиля
 function saveProfileChanges({ userName, userPost }) {
+  api.updateProfileInfo(userName, userPost);
   userInfo.setUserInfo(userName, userPost);
 }
 
