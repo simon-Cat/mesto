@@ -47,15 +47,6 @@ export default class Api {
       })
       .catch((err) => console.log(err));
   }
-  // async getInitialCards() {
-  //   const response = await fetch(`${this.url}/cards`, {
-  //     method: 'GET',
-  //     headers: this.headers,
-  //   });
-  //   const data = await response.json();
-
-  //   return data;
-  // }
 
   // обновить данные порфиля
   updateProfileInfo(name, about) {

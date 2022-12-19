@@ -78,8 +78,6 @@ const userInfo = new UserInfo({
 // класс Section для отрисвоки элементов
 const cardList = new Section(
   {
-    // items: initialCards,
-    // items: api.getInitialCards(),
     renderer: addPlaceNewCard,
   },
   '.places__list'
