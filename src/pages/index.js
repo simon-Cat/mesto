@@ -127,6 +127,12 @@ function saveProfileChanges({ userName, userPost }) {
 
 // добавление новой карочки "места"
 function addPlaceNewCard(initialPlace) {
+  // если создается новая карточка, то
+  // отправить ее на сервер
+  if (!('createdAt' in initialPlace)) {
+    api.sendNewCard(initialPlace);
+  }
+
   // создание новой карточки
   const placeNewCard = createPlaceCard(initialPlace);
 

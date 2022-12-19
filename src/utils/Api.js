@@ -62,11 +62,11 @@ export default class Api {
   }
 
   // добавить новую краточку
-  sendNewCard() {
+  sendNewCard({ name, link }) {
     return fetch(`${this.url}/cards`, {
       method: 'POST',
       headers: this.headers,
-      body: JSON.stringify({ name: 'Dubai', link: 'https://example.com' }),
+      body: JSON.stringify({ name, link }),
     })
       .then((res) => {
         return this._checkResponseStatus(res);
