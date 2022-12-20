@@ -55,6 +55,10 @@
 /* footer */
 @import url(../styles/blocks/footer/__text/footer__text.css);
 
+/* confirm */
+@import url(../styles/blocks/confirm/confirm.css);
+@import url(../styles/blocks/confirm/__title/confirm__title.css);
+
 /* popup */
 @import url(../styles/blocks/popup/popup.css);
 @import url(../styles/blocks/popup/_hidden/popup_hidden.css);

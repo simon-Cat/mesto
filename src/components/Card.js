@@ -1,11 +1,12 @@
 export default class Card {
-  constructor(data, templateSelector, handler) {
+  constructor(data, templateSelector, handler, handlerConfirm) {
     this._imageLink = data.link;
     this._title = data.name;
     this._likeCount = data.likes.length;
     this._templateSelector = templateSelector;
     // обработчик для показа увеличенного изображения карточки места
     this._externalHandler = handler;
+    this._confirmHandler = handlerConfirm;
   }
 
   // Получение шаблона карточки места
@@ -39,10 +40,17 @@ export default class Card {
     this._buttonLike.classList.toggle('button_active');
   }
 
+  // подтвердить удаление
+  // _confirm() {
+
+  // }
+
   // Обработчик при клике на кнопку "remove"
   _remove() {
-    this._element.remove();
-    this._element = null;
+    console.log('remove');
+    this._confirmHandler();
+    // this._element.remove();
+    // this._element = null;
   }
 
   // Получение полностью готовой карточки места

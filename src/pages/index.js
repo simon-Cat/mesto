@@ -1,4 +1,5 @@
 // Импорт классов
+import PopupConfirm from '../components/PopupConfirm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
@@ -31,6 +32,10 @@ window.addEventListener('load', () => {
     popup.classList.remove('popup_hidden');
   });
 });
+
+// подтверждение удаления карточки
+const popupConfirm = new PopupConfirm('.popup_type_confirm');
+popupConfirm.setEventListeners();
 
 // Api class
 const api = new Api({
@@ -148,7 +153,8 @@ function createPlaceCard(initialPlace) {
   const placeNewCard = new Card(
     initialPlace,
     '#place',
-    popupFullImage.open.bind(popupFullImage)
+    popupFullImage.open.bind(popupFullImage),
+    popupConfirm.open.bind(popupConfirm)
   ).generateCard();
 
   return placeNewCard;
