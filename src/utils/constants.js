@@ -1,11 +1,3 @@
-// Импорт изображений начальных карточек
-import imgAbkhazia from '../images/abkhazia.jpg';
-import imgKrasnodar from '../images/krasnodar.jpg';
-import imgMoscow from '../images/moscow.jpg';
-import imgNovorossysk from '../images/novorossysk.jpg';
-import imgSochi from '../images/sochi.jpg';
-import imgStPeterburg from '../images/st-peterburg.jpg';
-
 // объект с наименованиями свойств
 const config = {
   formSelector: '.popup__form',
@@ -16,16 +8,6 @@ const config = {
   submitButtonSelector: '.button_type_submit',
   inactiveButtonClass: 'button_disabled',
 };
-
-// 6 карточек при загрузке страницы
-const initialCards = [
-  { name: 'Абхазия', link: imgAbkhazia },
-  { name: 'Краснодар', link: imgKrasnodar },
-  { name: 'Москва', link: imgMoscow },
-  { name: 'Новороссийск', link: imgNovorossysk },
-  { name: 'Сочи', link: imgSochi },
-  { name: 'Санкт-Петербург', link: imgStPeterburg },
-];
 
 const profileEditButton = document.querySelector('.button_type_edit'),
   placeAddButton = document.querySelector('.button_type_add'),
@@ -40,7 +22,6 @@ const profileEditButton = document.querySelector('.button_type_edit'),
 
 export {
   config,
-  initialCards,
   profileEditButton,
   placeAddButton,
   inputProfileName,

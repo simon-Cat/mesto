@@ -11,7 +11,6 @@ import Api from '../utils/Api.js';
 // Импорт констант
 import {
   config,
-  initialCards,
   profileEditButton,
   placeAddButton,
   inputProfileName,
@@ -32,10 +31,6 @@ window.addEventListener('load', () => {
     popup.classList.remove('popup_hidden');
   });
 });
-
-// подтверждение удаления карточки
-const popupConfirm = new PopupConfirm('.popup_type_confirm');
-popupConfirm.setEventListeners();
 
 // Api class
 const api = new Api({
@@ -73,6 +68,13 @@ popupAdd.setEventListeners();
 const popupFullImage = new PopupWithImage('.popup_type_full-image');
 popupFullImage.setEventListeners();
 
+// подтверждение удаления карточки
+const popupConfirm = new PopupConfirm(
+  '.popup_type_confirm',
+  api.deleteCard.bind(api)
+);
+popupConfirm.setEventListeners();
+
 // класс UserInfo для управения отображения
 // данных пользователя
 const userInfo = new UserInfo({
@@ -90,11 +92,8 @@ const cardList = new Section(
 
 // отрисовать все карточки мест
 api.getInitialCards().then((res) => {
-  cardList.renderElements(res);
+  cardList.renderElements(res.reverse());
 });
-
-// отрисовать все карточки мест
-// cardList.renderElements();
 
 // установить данные в полях input в блоке profile
 // осущетсвить валидацию полей формы
@@ -102,12 +101,6 @@ api.getInitialCards().then((res) => {
 function setInitialProfileData() {
   // получаем объект данных пользователя
   const { userName, userPost } = userInfo.getUserInfo();
-
-  // ПОРВЕРКА API
-  // api.getInitialCards();
-  // api.getUserInfo();
-  // api.updateProfileInfo();
-  // api.sendNewCard();
 
   // отобразить данные в инпутах
   inputProfileName.value = userName;
@@ -134,18 +127,23 @@ function saveProfileChanges({ userName, userPost }) {
 function addPlaceNewCard(initialPlace) {
   // если создается новая карточка, то
   // отправить ее на сервер
-  if (!('createdAt' in initialPlace)) {
-    api.sendNewCard(initialPlace);
+  if (!('owner' in initialPlace)) {
+    api.sendNewCard(initialPlace).then((data) => {
+      console.log(data);
+      const placeNewCard = createPlaceCard(data);
+      formPlaceData.toggleButtonState();
+      cardList.addItem(placeNewCard);
+    });
+  } else {
+    // создание новой карточки
+    const placeNewCard = createPlaceCard(initialPlace);
+
+    // валидация кнопки
+    formPlaceData.toggleButtonState();
+
+    // Добавление карточки на страницу
+    cardList.addItem(placeNewCard);
   }
-
-  // создание новой карточки
-  const placeNewCard = createPlaceCard(initialPlace);
-
-  // валидация кнопки
-  formPlaceData.toggleButtonState();
-
-  // Добавление карточки на страницу
-  cardList.addItem(placeNewCard);
 }
 
 function createPlaceCard(initialPlace) {
@@ -154,7 +152,8 @@ function createPlaceCard(initialPlace) {
     initialPlace,
     '#place',
     popupFullImage.open.bind(popupFullImage),
-    popupConfirm.open.bind(popupConfirm)
+    popupConfirm.getCardID.bind(popupConfirm),
+    popupConfirm.getRemoveFn.bind(popupConfirm)
   ).generateCard();
 
   return placeNewCard;

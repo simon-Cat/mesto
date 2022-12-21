@@ -38,14 +38,17 @@ export default class Api {
 
   // получение начальных карточек мест
   getInitialCards() {
-    return fetch(`${this.url}/cards`, { headers: this.headers })
-      .then((res) => {
-        return this._checkResponseStatus(res);
-      })
-      .then((cards) => {
-        return cards;
-      })
-      .catch((err) => console.log(err));
+    return (
+      fetch(`${this.url}/cards`, { headers: this.headers })
+        .then((res) => {
+          // return this._checkResponseStatus(res);
+          return res.json();
+        })
+        // .then((cards) => {
+        //   return cards;
+        // })
+        .catch((err) => console.log(err))
+    );
   }
 
   // обновить данные порфиля
@@ -69,11 +72,23 @@ export default class Api {
       body: JSON.stringify({ name, link }),
     })
       .then((res) => {
-        return this._checkResponseStatus(res);
-      })
-      .then((newCardInfo) => {
-        console.log(newCardInfo);
+        // return this._checkResponseStatus(res);
+        return res.json();
       })
       .catch((err) => console.log(err));
+  }
+
+  // удалить карточку
+  deleteCard(id) {
+    return fetch(`${this.url}/cards/${id}`, {
+      method: 'DELETE',
+      headers: this.headers,
+    })
+      .then((res) => {
+        return res.text();
+      })
+      .then((data) => {
+        console.log(data);
+      });
   }
 }

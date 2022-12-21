@@ -32,6 +32,7 @@
 @import url(../styles/blocks/button/_active/button_active.css);
 @import url(../styles/blocks/button/_disabled/button_disabled.css);
 @import url(../styles/blocks/button/__text/button__text.css);
+@import url(../styles/blocks/button/_hidden/button_hidden.css);
 
 /* profile */
 @import url(../styles/blocks/profile/__avatar/profile__avatar.css);
