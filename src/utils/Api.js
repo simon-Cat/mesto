@@ -64,6 +64,19 @@ export default class Api {
       .catch((err) => console.log(err));
   }
 
+  // обновить аватарку
+  updateProfileAvatar(url) {
+    return fetch(`${this.url}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({ avatar: url }),
+    })
+      .then((res) => res.json())
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   // добавить новую краточку
   sendNewCard({ name, link }) {
     return fetch(`${this.url}/cards`, {
