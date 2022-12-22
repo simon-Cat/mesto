@@ -91,4 +91,25 @@ export default class Api {
         console.log(data);
       });
   }
+
+  // отправить лайк
+  sendLike(id, likes) {
+    return fetch(`${this.url}/cards/${id}/likes`, {
+      method: 'PUT',
+      headers: this.headers,
+      body: JSON.stringify({ likes }),
+    }).then((res) => {
+      return res.json();
+    });
+  }
+
+  // удалить лайк
+  deleteLike(id) {
+    return fetch(`${this.url}/cards/${id}/likes`, {
+      method: 'DELETE',
+      headers: this.headers,
+    }).then((res) => {
+      return res.json();
+    });
+  }
 }

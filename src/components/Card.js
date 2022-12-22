@@ -3,14 +3,17 @@ export default class Card {
     { link, name, likes, owner, _id },
     templateSelector,
     handlerFullImage,
-    // handlerDeleteFromDB,
+    // ПЕРЕИМЕНОВАТЬ
     popup,
-    byeElem
+    // ПЕРЕИМЕНОВАТЬ
+    byeElem,
+    sendLikeApiHandler,
+    deleteLikeApiHandler
   ) {
     this._imageLink = link;
     this._title = name;
     // кол-во лайков
-    this._likeCount = likes.length;
+    this._likeCount = likes;
     // ID собственника карточки
     this._ownerID = owner._id;
     // ID карточки
@@ -18,11 +21,15 @@ export default class Card {
     this._templateSelector = templateSelector;
     // обработчик для показа увеличенного изображения карточки места
     this._handlerFullImage = handlerFullImage;
-    // удаление карточки из БД
-    // this._deleteFromDB = handlerDeleteFromDB;
 
+    // ПЕРЕИМЕНОВАТЬ
     this.test = popup;
     this.byeEl = byeElem;
+
+    // отправить лайк на сервер
+    this._sendLikeToDB = sendLikeApiHandler;
+    // удалить лайк на сервере
+    this._deleteLikeFromDB = deleteLikeApiHandler;
   }
 
   // Получение шаблона карточки места
@@ -36,7 +43,21 @@ export default class Card {
   // и открытия изображения в полном масштабе
   _setEventListeners() {
     // кнопка "like" и обработчик события к ней
-    this._buttonLike.addEventListener('click', this._like.bind(this));
+    this._buttonLike.addEventListener('click', () => {
+      if (!this._buttonLike.classList.contains('button_active')) {
+        this._sendLikeToDB(this._cardID, this._likeCount).then((data) => {
+          console.log(data);
+          this._likeCountCard.textContent = data.likes.length;
+          this._like();
+        });
+      } else {
+        this._deleteLikeFromDB(this._cardID, this._likeCount).then((data) => {
+          console.log(data);
+          this._likeCountCard.textContent = data.likes.length;
+          this._like();
+        });
+      }
+    });
 
     // кнопка "remove" и обработчик события к ней
     // this._buttonRemove.addEventListener('click', this._remove.bind(this));
@@ -84,10 +105,16 @@ export default class Card {
 
     // количество лайков
     this._likeCountCard = this._element.querySelector('.place__like-count');
-    this._likeCountCard.textContent = this._likeCount;
+    this._likeCountCard.textContent = this._likeCount.length;
 
     // элемент кнопки "like"
     this._buttonLike = this._element.querySelector('.button_type_like');
+
+    this._likeCount.forEach((user) => {
+      if (user._id === '84a670d06bc1d0a20c48f9bd') {
+        this._like();
+      }
+    });
 
     // элемент кнопки удаления карточки
     this._buttonRemove = this._element.querySelector('.button_type_remove');

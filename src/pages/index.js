@@ -129,7 +129,6 @@ function addPlaceNewCard(initialPlace) {
   // отправить ее на сервер
   if (!('owner' in initialPlace)) {
     api.sendNewCard(initialPlace).then((data) => {
-      console.log(data);
       const placeNewCard = createPlaceCard(data);
       formPlaceData.toggleButtonState();
       cardList.addItem(placeNewCard);
@@ -153,7 +152,9 @@ function createPlaceCard(initialPlace) {
     '#place',
     popupFullImage.open.bind(popupFullImage),
     popupConfirm.getCardID.bind(popupConfirm),
-    popupConfirm.getRemoveFn.bind(popupConfirm)
+    popupConfirm.getRemoveFn.bind(popupConfirm),
+    api.sendLike.bind(api),
+    api.deleteLike.bind(api)
   ).generateCard();
 
   return placeNewCard;
