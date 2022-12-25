@@ -9,7 +9,8 @@ const config = {
   inactiveButtonClass: 'button_disabled',
 };
 
-const profileEditButton = document.querySelector('.button_type_edit'),
+const profileAvatarEditButton = document.querySelector('.profile__edit-avatar'),
+  profileEditButton = document.querySelector('.button_type_edit'),
   placeAddButton = document.querySelector('.button_type_add'),
   inputProfileName = document.querySelector('.form__input_type_name'),
   inputProfilePost = document.querySelector('.form__input_type_post'),
@@ -22,6 +23,7 @@ const profileEditButton = document.querySelector('.button_type_edit'),
 
 export {
   config,
+  profileAvatarEditButton,
   profileEditButton,
   placeAddButton,
   inputProfileName,

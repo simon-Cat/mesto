@@ -11,6 +11,7 @@ import Api from '../utils/Api.js';
 // Импорт констант
 import {
   config,
+  profileAvatarEditButton,
   profileEditButton,
   placeAddButton,
   inputProfileName,
@@ -56,6 +57,10 @@ formUserData.enableValidation();
 const formPlaceData = new FormValidator(config, '.form_placeData');
 formPlaceData.enableValidation();
 
+// валидация формы аватарки профиля
+const formUserAvatar = new FormValidator(config, '.form_userAvatar');
+formUserAvatar.enableValidation();
+
 // класс Popup для профиля пользователя
 const popupEdit = new PopupWithForm('.popup_type_edit', saveProfileChanges);
 popupEdit.setEventListeners();
@@ -81,6 +86,10 @@ const userInfo = new UserInfo({
   userNameSelector: '.profile__title',
   userPostSelector: '.profile__description',
 });
+
+// класс Popup для обновления аватарки
+const popupAvatarEdit = new PopupWithForm('.popup_type_avatar', alert);
+popupAvatarEdit.setEventListeners();
 
 // класс Section для отрисвоки элементов
 const cardList = new Section(
@@ -166,4 +175,8 @@ placeAddButton.addEventListener('click', () => {
   // блокируем кнопку формы создания новых карточек
   formPlaceData.toggleButtonState();
   popupAdd.open();
+});
+profileAvatarEditButton.addEventListener('click', () => {
+  formUserAvatar.toggleButtonState();
+  popupAvatarEdit.open();
 });
