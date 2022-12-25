@@ -1,7 +1,8 @@
 export default class UserInfo {
-  constructor({ userNameSelector, userPostSelector }) {
+  constructor({ userNameSelector, userPostSelector, userAvatarSelector }) {
     this._userName = document.querySelector(userNameSelector);
     this._userPost = document.querySelector(userPostSelector);
+    this._userAvatar = document.querySelector(userAvatarSelector);
   }
   // вернуть объект данных о пользователе
   getUserInfo() {
@@ -15,5 +16,10 @@ export default class UserInfo {
   setUserInfo(name, post) {
     this._userName.textContent = name;
     this._userPost.textContent = post;
+  }
+
+  // обновить аватарку
+  setUserInfoAvatar(avatar) {
+    this._userAvatar.src = avatar;
   }
 }

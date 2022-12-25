@@ -65,11 +65,11 @@ export default class Api {
   }
 
   // обновить аватарку
-  updateProfileAvatar(url) {
+  updateProfileAvatar(avatar) {
     return fetch(`${this.url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this.headers,
-      body: JSON.stringify({ avatar: url }),
+      body: JSON.stringify({ avatar }),
     })
       .then((res) => res.json())
       .catch((err) => {

@@ -85,10 +85,14 @@ popupConfirm.setEventListeners();
 const userInfo = new UserInfo({
   userNameSelector: '.profile__title',
   userPostSelector: '.profile__description',
+  userAvatarSelector: '.profile__avatar',
 });
 
 // класс Popup для обновления аватарки
-const popupAvatarEdit = new PopupWithForm('.popup_type_avatar', alert);
+const popupAvatarEdit = new PopupWithForm(
+  '.popup_type_avatar',
+  saveProfileAvatarChanges
+);
 popupAvatarEdit.setEventListeners();
 
 // класс Section для отрисвоки элементов
@@ -124,12 +128,20 @@ function setInitialProfileData() {
   popupEdit.open();
 }
 
-// сохранить изменения профиля
 // отправить новые данные профиля на сервер
 // отрисовать новые данные профиля
 function saveProfileChanges({ userName, userPost }) {
-  api.updateProfileInfo(userName, userPost);
-  userInfo.setUserInfo(userName, userPost);
+  api.updateProfileInfo(userName, userPost).then((userData) => {
+    userInfo.setUserInfo(userData.name, userData.about);
+  });
+}
+
+// отправить новую аватарку профиля на сервер
+// отрисовать новые аватарку профиля
+function saveProfileAvatarChanges({ avatar }) {
+  api.updateProfileAvatar(avatar).then((userData) => {
+    userInfo.setUserInfoAvatar(userData.avatar);
+  });
 }
 
 // добавление новой карочки "места"
