@@ -8,6 +8,8 @@ export default class PopupWithForm extends Popup {
     this._formInputList = Array.from(
       this._form.querySelectorAll('.form__input')
     );
+    this._buttonSubmit = this._form.querySelector('.button_type_submit');
+    this._textButtonSubmit = this._buttonSubmit.querySelector('.button__text');
   }
 
   // получить данные всех инпутов
@@ -24,10 +26,21 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
+      this.toggleLoader(true);
       this._getInputValues();
       this._handlerSubmit(this._inputValues);
-      this.close();
     });
+  }
+
+  // переключатель загрузчика
+  toggleLoader(boolean) {
+    if (boolean) {
+      this._buttonSubmit.classList.add('button_disabled');
+      this._textButtonSubmit.textContent = 'Сохранение...';
+    } else {
+      this._textButtonSubmit.textContent = 'Сохранить';
+      this._buttonSubmit.classList.remove('button_disabled');
+    }
   }
 
   // закрыть попап

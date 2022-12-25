@@ -42,11 +42,19 @@ const api = new Api({
   },
 });
 
-// загрузка данных пользователя
-api.getUserInfo().then((res) => {
-  profileAvatar.src = res.avatar;
-  profileName.textContent = res.name;
-  profileAbout.textContent = res.about;
+// класс UserInfo для управения отображения
+// данных пользователя
+const userInfo = new UserInfo({
+  userNameSelector: '.profile__title',
+  userPostSelector: '.profile__description',
+  userAvatarSelector: '.profile__avatar',
+});
+
+// загрузить данные пользователя с сервера
+// отрисовать их на странице
+api.getUserInfo().then(({ name, about, avatar }) => {
+  userInfo.setUserInfo(name, about);
+  userInfo.setUserInfoAvatar(avatar);
 });
 
 // валидация формы профиля
@@ -79,14 +87,6 @@ const popupConfirm = new PopupConfirm(
   api.deleteCard.bind(api)
 );
 popupConfirm.setEventListeners();
-
-// класс UserInfo для управения отображения
-// данных пользователя
-const userInfo = new UserInfo({
-  userNameSelector: '.profile__title',
-  userPostSelector: '.profile__description',
-  userAvatarSelector: '.profile__avatar',
-});
 
 // класс Popup для обновления аватарки
 const popupAvatarEdit = new PopupWithForm(
@@ -131,17 +131,29 @@ function setInitialProfileData() {
 // отправить новые данные профиля на сервер
 // отрисовать новые данные профиля
 function saveProfileChanges({ userName, userPost }) {
-  api.updateProfileInfo(userName, userPost).then((userData) => {
-    userInfo.setUserInfo(userData.name, userData.about);
-  });
+  api
+    .updateProfileInfo(userName, userPost)
+    .then((userData) => {
+      userInfo.setUserInfo(userData.name, userData.about);
+    })
+    .finally(() => {
+      popupEdit.close();
+      popupEdit.toggleLoader(false);
+    });
 }
 
 // отправить новую аватарку профиля на сервер
 // отрисовать новые аватарку профиля
 function saveProfileAvatarChanges({ avatar }) {
-  api.updateProfileAvatar(avatar).then((userData) => {
-    userInfo.setUserInfoAvatar(userData.avatar);
-  });
+  api
+    .updateProfileAvatar(avatar)
+    .then((userData) => {
+      userInfo.setUserInfoAvatar(userData.avatar);
+    })
+    .finally(() => {
+      popupAvatarEdit.close();
+      popupAvatarEdit.toggleLoader(false);
+    });
 }
 
 // добавление новой карочки "места"
@@ -149,11 +161,17 @@ function addPlaceNewCard(initialPlace) {
   // если создается новая карточка, то
   // отправить ее на сервер
   if (!('owner' in initialPlace)) {
-    api.sendNewCard(initialPlace).then((data) => {
-      const placeNewCard = createPlaceCard(data);
-      formPlaceData.toggleButtonState();
-      cardList.addItem(placeNewCard);
-    });
+    api
+      .sendNewCard(initialPlace)
+      .then((data) => {
+        const placeNewCard = createPlaceCard(data);
+        formPlaceData.toggleButtonState();
+        cardList.addItem(placeNewCard);
+      })
+      .finally(() => {
+        popupAdd.close();
+        popupAdd.toggleLoader(false);
+      });
   } else {
     // создание новой карточки
     const placeNewCard = createPlaceCard(initialPlace);
