@@ -1,11 +1,10 @@
 export default class Api {
-  // добавить конструктор
   constructor({ baseURL, headers }) {
     this.url = baseURL;
     this.headers = headers;
   }
 
-  // проверить статуст запроса
+  // проверить статус запроса
   _checkResponseStatus(response) {
     if (response.ok) {
       return response.json();
@@ -14,41 +13,25 @@ export default class Api {
     }
   }
 
-  //  получить данные пользователя
-  // async getUserInfo() {
-  //   const response = await fetch(`${this.url}/users/me`, {
-  //     method: 'GET',
-  //     headers: this.headers,
-  //   });
-  //   const data = await response.json();
-  //   return data;
-  // }
-
+  // получить данные пользователя
   getUserInfo() {
     return fetch(`${this.url}/users/me`, {
       method: 'GET',
       headers: this.headers,
-    }).then((res) => {
-      return this._checkResponseStatus(res);
-    });
-    // .then((data) => {
-    //   return data;
-    // });
+    })
+      .then((res) => {
+        return this._checkResponseStatus(res);
+      })
+      .catch((err) => console.log(err));
   }
 
   // получение начальных карточек мест
   getInitialCards() {
-    return (
-      fetch(`${this.url}/cards`, { headers: this.headers })
-        .then((res) => {
-          // return this._checkResponseStatus(res);
-          return res.json();
-        })
-        // .then((cards) => {
-        //   return cards;
-        // })
-        .catch((err) => console.log(err))
-    );
+    return fetch(`${this.url}/cards`, { headers: this.headers })
+      .then((res) => {
+        return this._checkResponseStatus(res);
+      })
+      .catch((err) => console.log(err));
   }
 
   // обновить данные порфиля
@@ -71,7 +54,9 @@ export default class Api {
       headers: this.headers,
       body: JSON.stringify({ avatar }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        return this._checkResponseStatus(res);
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -85,8 +70,7 @@ export default class Api {
       body: JSON.stringify({ name, link }),
     })
       .then((res) => {
-        // return this._checkResponseStatus(res);
-        return res.json();
+        return this._checkResponseStatus(res);
       })
       .catch((err) => console.log(err));
   }
@@ -98,11 +82,9 @@ export default class Api {
       headers: this.headers,
     })
       .then((res) => {
-        return res.text();
+        return this._checkResponseStatus(res);
       })
-      .then((data) => {
-        console.log(data);
-      });
+      .catch((err) => console.log(err));
   }
 
   // отправить лайк
@@ -111,9 +93,11 @@ export default class Api {
       method: 'PUT',
       headers: this.headers,
       body: JSON.stringify({ likes }),
-    }).then((res) => {
-      return res.json();
-    });
+    })
+      .then((res) => {
+        return this._checkResponseStatus(res);
+      })
+      .catch((err) => console.log(err));
   }
 
   // удалить лайк
@@ -121,8 +105,10 @@ export default class Api {
     return fetch(`${this.url}/cards/${id}/likes`, {
       method: 'DELETE',
       headers: this.headers,
-    }).then((res) => {
-      return res.json();
-    });
+    })
+      .then((res) => {
+        return this._checkResponseStatus(res);
+      })
+      .catch((err) => console.log(err));
   }
 }
