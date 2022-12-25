@@ -52,10 +52,13 @@ const userInfo = new UserInfo({
 
 // загрузить данные пользователя с сервера
 // отрисовать их на странице
-api.getUserInfo().then(({ name, about, avatar }) => {
-  userInfo.setUserInfo(name, about);
-  userInfo.setUserInfoAvatar(avatar);
-});
+api
+  .getUserInfo()
+  .then(({ name, about, avatar }) => {
+    userInfo.setUserInfo(name, about);
+    userInfo.setUserInfoAvatar(avatar);
+  })
+  .catch((err) => console.log(err));
 
 // валидация формы профиля
 const formUserData = new FormValidator(config, '.form_userData');
@@ -104,9 +107,12 @@ const cardList = new Section(
 );
 
 // отрисовать все карточки мест
-api.getInitialCards().then((res) => {
-  cardList.renderElements(res.reverse());
-});
+api
+  .getInitialCards()
+  .then((res) => {
+    cardList.renderElements(res.reverse());
+  })
+  .catch((err) => console.log(err));
 
 // установить данные в полях input в блоке profile
 // осущетсвить валидацию полей формы
@@ -139,7 +145,8 @@ function saveProfileChanges({ userName, userPost }) {
     .finally(() => {
       popupEdit.close();
       popupEdit.toggleLoader(false);
-    });
+    })
+    .catch((err) => console.log(err));
 }
 
 // отправить новую аватарку профиля на сервер
@@ -153,6 +160,9 @@ function saveProfileAvatarChanges({ avatar }) {
     .finally(() => {
       popupAvatarEdit.close();
       popupAvatarEdit.toggleLoader(false);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }
 
@@ -171,7 +181,8 @@ function addPlaceNewCard(initialPlace) {
       .finally(() => {
         popupAdd.close();
         popupAdd.toggleLoader(false);
-      });
+      })
+      .catch((err) => console.log(err));
   } else {
     // создание новой карточки
     const placeNewCard = createPlaceCard(initialPlace);

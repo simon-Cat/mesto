@@ -45,17 +45,21 @@ export default class Card {
     // кнопка "like" и обработчик события к ней
     this._buttonLike.addEventListener('click', () => {
       if (!this._buttonLike.classList.contains('button_active')) {
-        this._sendLikeToDB(this._cardID, this._likeCount).then((data) => {
-          console.log(data);
-          this._likeCountCard.textContent = data.likes.length;
-          this._like();
-        });
+        this._sendLikeToDB(this._cardID, this._likeCount)
+          .then((data) => {
+            console.log(data);
+            this._likeCountCard.textContent = data.likes.length;
+            this._like();
+          })
+          .catch((err) => console.log(err));
       } else {
-        this._deleteLikeFromDB(this._cardID, this._likeCount).then((data) => {
-          console.log(data);
-          this._likeCountCard.textContent = data.likes.length;
-          this._like();
-        });
+        this._deleteLikeFromDB(this._cardID, this._likeCount)
+          .then((data) => {
+            console.log(data);
+            this._likeCountCard.textContent = data.likes.length;
+            this._like();
+          })
+          .catch((err) => console.log(err));
       }
     });
 

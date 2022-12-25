@@ -26,8 +26,11 @@ export default class PopupConfirm extends Popup {
       // удалить карточку из БД
       // удалить карточку со страницы
       // закрыть попап
-      this._deleteFromDB(this._cardID);
-      this._removeFromPage();
+      this._deleteFromDB(this._cardID)
+        .then(() => {
+          this._removeFromPage();
+        })
+        .catch((err) => console.log(err));
       super.close();
     });
   }

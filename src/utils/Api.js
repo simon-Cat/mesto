@@ -18,20 +18,16 @@ export default class Api {
     return fetch(`${this.url}/users/me`, {
       method: 'GET',
       headers: this.headers,
-    })
-      .then((res) => {
-        return this._checkResponseStatus(res);
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => {
+      return this._checkResponseStatus(res);
+    });
   }
 
   // получение начальных карточек мест
   getInitialCards() {
-    return fetch(`${this.url}/cards`, { headers: this.headers })
-      .then((res) => {
-        return this._checkResponseStatus(res);
-      })
-      .catch((err) => console.log(err));
+    return fetch(`${this.url}/cards`, { headers: this.headers }).then((res) => {
+      return this._checkResponseStatus(res);
+    });
   }
 
   // обновить данные порфиля
@@ -40,11 +36,9 @@ export default class Api {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({ name, about }),
-    })
-      .then((res) => {
-        return this._checkResponseStatus(res);
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => {
+      return this._checkResponseStatus(res);
+    });
   }
 
   // обновить аватарку
@@ -53,13 +47,9 @@ export default class Api {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({ avatar }),
-    })
-      .then((res) => {
-        return this._checkResponseStatus(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => {
+      return this._checkResponseStatus(res);
+    });
   }
 
   // добавить новую краточку
@@ -68,11 +58,9 @@ export default class Api {
       method: 'POST',
       headers: this.headers,
       body: JSON.stringify({ name, link }),
-    })
-      .then((res) => {
-        return this._checkResponseStatus(res);
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => {
+      return this._checkResponseStatus(res);
+    });
   }
 
   // удалить карточку
@@ -80,11 +68,9 @@ export default class Api {
     return fetch(`${this.url}/cards/${id}`, {
       method: 'DELETE',
       headers: this.headers,
-    })
-      .then((res) => {
-        return this._checkResponseStatus(res);
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => {
+      return this._checkResponseStatus(res);
+    });
   }
 
   // отправить лайк
@@ -93,11 +79,9 @@ export default class Api {
       method: 'PUT',
       headers: this.headers,
       body: JSON.stringify({ likes }),
-    })
-      .then((res) => {
-        return this._checkResponseStatus(res);
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => {
+      return this._checkResponseStatus(res);
+    });
   }
 
   // удалить лайк
@@ -105,10 +89,8 @@ export default class Api {
     return fetch(`${this.url}/cards/${id}/likes`, {
       method: 'DELETE',
       headers: this.headers,
-    })
-      .then((res) => {
-        return this._checkResponseStatus(res);
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => {
+      return this._checkResponseStatus(res);
+    });
   }
 }
