@@ -3,10 +3,8 @@ export default class Card {
     { link, name, likes, owner, _id },
     templateSelector,
     handlerFullImage,
-    // ПЕРЕИМЕНОВАТЬ
-    popup,
-    // ПЕРЕИМЕНОВАТЬ
-    byeElem,
+    popupConfirmOpenHandler,
+    popupConfirmRemoveHandler,
     sendLikeApiHandler,
     deleteLikeApiHandler
   ) {
@@ -21,11 +19,11 @@ export default class Card {
     this._templateSelector = templateSelector;
     // обработчик для показа увеличенного изображения карточки места
     this._handlerFullImage = handlerFullImage;
-
-    // ПЕРЕИМЕНОВАТЬ
-    this.test = popup;
-    this.byeEl = byeElem;
-
+    // обработчик попапа подтверждения удаления
+    this._confirmOpenHandler = popupConfirmOpenHandler;
+    // обработчик передачи метода удаления карточки
+    // для попапа подтверждения удаления
+    this._confirmRemoveHandler = popupConfirmRemoveHandler;
     // отправить лайк на сервер
     this._sendLikeToDB = sendLikeApiHandler;
     // удалить лайк на сервере
@@ -47,7 +45,6 @@ export default class Card {
       if (!this._buttonLike.classList.contains('button_active')) {
         this._sendLikeToDB(this._cardID, this._likeCount)
           .then((data) => {
-            console.log(data);
             this._likeCountCard.textContent = data.likes.length;
             this._like();
           })
@@ -55,7 +52,6 @@ export default class Card {
       } else {
         this._deleteLikeFromDB(this._cardID, this._likeCount)
           .then((data) => {
-            console.log(data);
             this._likeCountCard.textContent = data.likes.length;
             this._like();
           })
@@ -63,11 +59,12 @@ export default class Card {
       }
     });
 
-    // кнопка "remove" и обработчик события к ней
-    // this._buttonRemove.addEventListener('click', this._remove.bind(this));
+    // при нажатии кнопки "remove"
+    // передаем попапу confirm ID карточки
+    // и метод для ее удаления
     this._buttonRemove.addEventListener('click', () => {
-      this.test(this._cardID);
-      this.byeEl(this._remove.bind(this));
+      this._confirmOpenHandler(this._cardID);
+      this._confirmRemoveHandler(this._remove.bind(this));
     });
 
     // открытие изображения в полном масштабе
@@ -85,8 +82,6 @@ export default class Card {
 
   // Обработчик при клике на кнопку "remove"
   _remove() {
-    console.log('remove');
-    // this._deleteFromDB(this._cardID);
     this._element.remove();
     this._element = null;
   }
@@ -114,17 +109,24 @@ export default class Card {
     // элемент кнопки "like"
     this._buttonLike = this._element.querySelector('.button_type_like');
 
-    this._likeCount.forEach((user) => {
-      if (user._id === '84a670d06bc1d0a20c48f9bd') {
-        this._like();
-      }
-    });
+    // если в массиве лайков
+    // есть наш ID, то при отрисовке карточек
+    // показываем наш лайк
+    // ПЕРЕДАТЬ ID РЕАЛЬНОГО ПОЛЬЗОВАТЕЛЯ И СРАВНИВАТЬ ЕГО
+    // А НЕ УКАЗЫВАТЬ СТРОКУ
+    if (
+      this._likeCount.some((user) => user._id === '84a670d06bc1d0a20c48f9bd')
+    ) {
+      this._like();
+    }
 
     // элемент кнопки удаления карточки
     this._buttonRemove = this._element.querySelector('.button_type_remove');
 
     // если карточка создана не мной
     // то скрыть кнопку удаления
+    // ПЕРЕДАТЬ ID РЕАЛЬНОГО ПОЛЬЗОВАТЕЛЯ И СРАВНИВАТЬ ЕГО
+    // А НЕ УКАЗЫВАТЬ СТРОКУ
     if (this._ownerID !== '84a670d06bc1d0a20c48f9bd') {
       this._buttonRemove.remove();
     }

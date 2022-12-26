@@ -16,9 +16,6 @@ import {
   placeAddButton,
   inputProfileName,
   inputProfilePost,
-  profileAvatar,
-  profileName,
-  profileAbout,
 } from '../utils/constants.js';
 
 // Импорт стилей
@@ -32,6 +29,10 @@ window.addEventListener('load', () => {
     popup.classList.remove('popup_hidden');
   });
 });
+
+const USER_DATA = {
+  id: null,
+};
 
 // Api class
 const api = new Api({
@@ -54,9 +55,11 @@ const userInfo = new UserInfo({
 // отрисовать их на странице
 api
   .getUserInfo()
-  .then(({ name, about, avatar }) => {
+  .then(({ name, about, avatar, _id }) => {
     userInfo.setUserInfo(name, about);
     userInfo.setUserInfoAvatar(avatar);
+    // сохранить наш ID в переменную
+    USER_DATA.id = _id;
   })
   .catch((err) => console.log(err));
 
@@ -73,12 +76,15 @@ const formUserAvatar = new FormValidator(config, '.form_userAvatar');
 formUserAvatar.enableValidation();
 
 // класс Popup для профиля пользователя
-const popupEdit = new PopupWithForm('.popup_type_edit', saveProfileChanges);
-popupEdit.setEventListeners();
+const popupEditUserInfo = new PopupWithForm(
+  '.popup_type_edit',
+  saveProfileChanges
+);
+popupEditUserInfo.setEventListeners();
 
 // класс Popup для добавления карточки
-const popupAdd = new PopupWithForm('.popup_type_add', addPlaceNewCard);
-popupAdd.setEventListeners();
+const popupAddNewCard = new PopupWithForm('.popup_type_add', addPlaceNewCard);
+popupAddNewCard.setEventListeners();
 
 // класс Popup для отображения полномасштабного изображения
 const popupFullImage = new PopupWithImage('.popup_type_full-image');
@@ -92,11 +98,11 @@ const popupConfirm = new PopupConfirm(
 popupConfirm.setEventListeners();
 
 // класс Popup для обновления аватарки
-const popupAvatarEdit = new PopupWithForm(
+const popupEditUserAvatar = new PopupWithForm(
   '.popup_type_avatar',
   saveProfileAvatarChanges
 );
-popupAvatarEdit.setEventListeners();
+popupEditUserAvatar.setEventListeners();
 
 // класс Section для отрисвоки элементов
 const cardList = new Section(
@@ -109,8 +115,8 @@ const cardList = new Section(
 // отрисовать все карточки мест
 api
   .getInitialCards()
-  .then((res) => {
-    cardList.renderElements(res.reverse());
+  .then((cards) => {
+    cardList.renderElements(cards.reverse());
   })
   .catch((err) => console.log(err));
 
@@ -131,7 +137,7 @@ function setInitialProfileData() {
   formUserData.toggleButtonState();
 
   // открыть popup
-  popupEdit.open();
+  popupEditUserInfo.open();
 }
 
 // отправить новые данные профиля на сервер
@@ -139,12 +145,12 @@ function setInitialProfileData() {
 function saveProfileChanges({ userName, userPost }) {
   api
     .updateProfileInfo(userName, userPost)
-    .then((userData) => {
-      userInfo.setUserInfo(userData.name, userData.about);
+    .then(({ name, about }) => {
+      userInfo.setUserInfo(name, about);
     })
     .finally(() => {
-      popupEdit.close();
-      popupEdit.toggleLoader(false);
+      popupEditUserInfo.close();
+      popupEditUserInfo.toggleLoader(false);
     })
     .catch((err) => console.log(err));
 }
@@ -154,12 +160,12 @@ function saveProfileChanges({ userName, userPost }) {
 function saveProfileAvatarChanges({ avatar }) {
   api
     .updateProfileAvatar(avatar)
-    .then((userData) => {
-      userInfo.setUserInfoAvatar(userData.avatar);
+    .then(({ avatar }) => {
+      userInfo.setUserInfoAvatar(avatar);
     })
     .finally(() => {
-      popupAvatarEdit.close();
-      popupAvatarEdit.toggleLoader(false);
+      popupEditUserAvatar.close();
+      popupEditUserAvatar.toggleLoader(false);
     })
     .catch((err) => {
       console.log(err);
@@ -179,8 +185,8 @@ function addPlaceNewCard(initialPlace) {
         cardList.addItem(placeNewCard);
       })
       .finally(() => {
-        popupAdd.close();
-        popupAdd.toggleLoader(false);
+        popupAddNewCard.close();
+        popupAddNewCard.toggleLoader(false);
       })
       .catch((err) => console.log(err));
   } else {
@@ -215,9 +221,9 @@ profileEditButton.addEventListener('click', setInitialProfileData);
 placeAddButton.addEventListener('click', () => {
   // блокируем кнопку формы создания новых карточек
   formPlaceData.toggleButtonState();
-  popupAdd.open();
+  popupAddNewCard.open();
 });
 profileAvatarEditButton.addEventListener('click', () => {
   formUserAvatar.toggleButtonState();
-  popupAvatarEdit.open();
+  popupEditUserAvatar.open();
 });
