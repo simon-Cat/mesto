@@ -30,6 +30,7 @@ window.addEventListener('load', () => {
   });
 });
 
+// наш ID
 const USER_DATA = {
   id: null,
 };
@@ -205,6 +206,7 @@ function createPlaceCard(initialPlace) {
   // переменная для хранения новой карточки
   const placeNewCard = new Card(
     initialPlace,
+    USER_DATA.id,
     '#place',
     popupFullImage.open.bind(popupFullImage),
     popupConfirm.getCardID.bind(popupConfirm),

@@ -1,6 +1,7 @@
 export default class Card {
   constructor(
     { link, name, likes, owner, _id },
+    userID,
     templateSelector,
     handlerFullImage,
     popupConfirmOpenHandler,
@@ -16,6 +17,8 @@ export default class Card {
     this._ownerID = owner._id;
     // ID карточки
     this._cardID = _id;
+    // наш ID
+    this._userID = userID;
     this._templateSelector = templateSelector;
     // обработчик для показа увеличенного изображения карточки места
     this._handlerFullImage = handlerFullImage;
@@ -112,11 +115,7 @@ export default class Card {
     // если в массиве лайков
     // есть наш ID, то при отрисовке карточек
     // показываем наш лайк
-    // ПЕРЕДАТЬ ID РЕАЛЬНОГО ПОЛЬЗОВАТЕЛЯ И СРАВНИВАТЬ ЕГО
-    // А НЕ УКАЗЫВАТЬ СТРОКУ
-    if (
-      this._likeCount.some((user) => user._id === '84a670d06bc1d0a20c48f9bd')
-    ) {
+    if (this._likeCount.some((user) => user._id === this._userID)) {
       this._like();
     }
 
@@ -125,9 +124,7 @@ export default class Card {
 
     // если карточка создана не мной
     // то скрыть кнопку удаления
-    // ПЕРЕДАТЬ ID РЕАЛЬНОГО ПОЛЬЗОВАТЕЛЯ И СРАВНИВАТЬ ЕГО
-    // А НЕ УКАЗЫВАТЬ СТРОКУ
-    if (this._ownerID !== '84a670d06bc1d0a20c48f9bd') {
+    if (this._ownerID !== this._userID) {
       this._buttonRemove.remove();
     }
 
