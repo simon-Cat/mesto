@@ -1,10 +1,10 @@
 import Popup from './Popup';
 
 export default class PopupConfirm extends Popup {
-  constructor(popupSelector, deleteFromDBHandler) {
+  constructor(popupSelector, deleteCardFromDBHandler) {
     super(popupSelector);
     this._buttonSubmit = this._popup.querySelector('.button_type_submit');
-    this._deleteFromDB = deleteFromDBHandler;
+    this._deleteCardFromDB = deleteCardFromDBHandler;
   }
 
   // получить ID карточки
@@ -26,12 +26,7 @@ export default class PopupConfirm extends Popup {
       // удалить карточку из БД
       // удалить карточку со страницы
       // закрыть попап
-      this._deleteFromDB(this._cardID)
-        .then(() => {
-          this._removeFromPage();
-        })
-        .catch((err) => console.log(err));
-      super.close();
+      this._deleteCardFromDB(this._cardID, this._removeFromPage);
     });
   }
 }
